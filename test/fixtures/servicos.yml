@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  data: 2023-01-21
+  nome_cliente: MyString
+  servico: MyString
+  valor: MyString
+
+two:
+  data: 2023-01-21
+  nome_cliente: MyString
+  servico: MyString
+  valor: MyString
