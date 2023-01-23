@@ -1,37 +1,37 @@
 <%= form_with(model: servico) do |form| %>
-  <% if servico.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(servico.errors.count, "error") %> prohibited this servico from being saved:</h2>
-
-      <ul>
-        <% servico.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :data %>
-    <%= form.date_select :data %>
+  <div class="mb-3">
+    <%= form.label :data, class:'form-label' %>
+    <%= form.date_field :data, value: Date.today, class:'form-control' %>
   </div>
 
-  <div class="field">
-    <%= form.label :nome_cliente %>
-    <%= form.text_field :nome_cliente %>
+  <div class="mb-3">
+    <%= form.label :nome_cliente, class:'form-label' %>
+    <%= form.text_field :nome_cliente, class:'form-control' %>
   </div>
 
-  <div class="field">
-    <%= form.label :servico %>
-    <%= form.text_field :servico %>
+  <div class="mb-3">
+    <%= form.label :servico, 'Serviço', class:'form-label' %>
+    <%= form.text_field :servico, class:'form-control' %>
+  </div>
+  
+  <div class="mb-3">
+    <%= form.label :valor, class:'form-label' %>
+    <%= form.text_field :valor, class:'form-control moeda' %>
   </div>
 
-  <div class="field">
-    <%= form.label :valor %>
-    <%= form.text_field :valor %>
+  <div class="mt-5">
+    <%= form.submit 'Salvar', class:'btn btn-primary' %>
+    <%= link_to "Voltar", servicos_do_dia_servicos_path, class:'btn btn-primary' %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
 <% end %>
+
+<script>
+ $(function() {
+      $(".moeda").maskMoney({
+        prefix:'R$ ',
+        thousands:'.',
+        decimal:','
+      });
+  });
+</script>

@@ -3,7 +3,7 @@ class ServicosController < ApplicationController
 
   # GET /servicos or /servicos.json
   def index
-    @servicos = Servico.all
+    @servicos = Servico.all.order(data: :desc)
     @servicos_do_dia = Servico.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'")
     @valor_total_dia = @servicos_do_dia.map(&:valor).map(&:to_f).sum
     @valor_total = @servicos.map(&:valor).map(&:to_f).sum
@@ -15,7 +15,7 @@ class ServicosController < ApplicationController
   end
 
   def servicos_do_dia
-    @servicos_do_dia = Servico.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'")
+    @servicos_do_dia = Servico.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").order(created_at: :desc)
     @valor_total_dia = @servicos_do_dia.map(&:valor).map(&:to_f).sum
   end
 
@@ -35,13 +35,14 @@ class ServicosController < ApplicationController
   # POST /servicos or /servicos.json
   def create
     @servico = Servico.new(servico_params)
+    @servico.valor = @servico.valor.gsub('R$','').gsub('.','').gsub(',','.').gsub(' ', '')
 
     respond_to do |format|
       if @servico.save
         format.html { redirect_to servicos_do_dia_servicos_path, notice: "Serviço criado com sucesso!" }
         format.json { render :show, status: :created, location: @servico }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to new_servico_path, notice: "Campos de SERVIÇO e VALOR são obrigatórios!" }
         format.json { render json: @servico.errors, status: :unprocessable_entity }
       end
     end
@@ -54,7 +55,7 @@ class ServicosController < ApplicationController
         format.html { redirect_to servicos_do_dia_servicos_path, notice: "Serviço atualizado com sucesso!" }
         format.json { render :show, status: :ok, location: @servico }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { redirect_to new_servico_path, notice: "Campos de SERVIÇO e VALOR são obrigatórios!" }
         format.json { render json: @servico.errors, status: :unprocessable_entity }
       end
     end
