@@ -1,4 +1,7 @@
 <%= form_with(model: servico) do |form| %>
+
+  <%= render 'layouts/error_messages', object: form.object %>
+
   <div class="mb-3">
     <%= form.label :data, class:'form-label' %>
     <%= form.date_field :data, value: Date.today, class:'form-control' %>

@@ -37,38 +37,33 @@ class ServicosController < ApplicationController
     @servico = Servico.new(servico_params)
     @servico.valor = @servico.valor.gsub('R$','').gsub('.','').gsub(',','.').gsub(' ', '')
 
-    respond_to do |format|
-      if @servico.save
-        format.html { redirect_to servicos_do_dia_servicos_path, notice: "Serviço criado com sucesso!" }
-        format.json { render :show, status: :created, location: @servico }
-      else
-        format.html { redirect_to new_servico_path, notice: "Campos de SERVIÇO e VALOR são obrigatórios!" }
-        format.json { render json: @servico.errors, status: :unprocessable_entity }
-      end
+    if @servico.save
+      flash[:success] = "Serviço criado com sucesso!" 
+      redirect_to servicos_do_dia_servicos_path
+    else
+      render 'new'
     end
   end
 
   # PATCH/PUT /servicos/1 or /servicos/1.json
   def update
-    respond_to do |format|
-      if @servico.update(servico_params)
-        format.html { redirect_to servicos_do_dia_servicos_path, notice: "Serviço atualizado com sucesso!" }
-        format.json { render :show, status: :ok, location: @servico }
-      else
-        format.html { redirect_to new_servico_path, notice: "Campos de SERVIÇO e VALOR são obrigatórios!" }
-        format.json { render json: @servico.errors, status: :unprocessable_entity }
-      end
+    
+    if @servico.update(servico_params)
+      flash[:success] = "Serviço atualizado com sucesso!" 
+      redirect_to servicos_do_dia_servicos_path
+    else
+      render 'new'
     end
+
   end
 
   # DELETE /servicos/1 or /servicos/1.json
   def destroy
     @servico.destroy
-
-    respond_to do |format|
-      format.html { redirect_to servicos_url, notice: "Serviço apagado com sucesso!" }
-      format.json { head :no_content }
-    end
+    
+    flash[:success] = "Serviço apagado com sucesso!" 
+    redirect_to servicos_do_dia_servicos_path
+    
   end
 
   private

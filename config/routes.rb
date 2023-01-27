@@ -6,6 +6,11 @@ Rails.application.routes.draw do
     get :caixa_total, on: :collection #usar collection pra trazer lista de dados
     get :servicos_do_dia, on: :collection
   end
+
+  get 'entrar', to: 'sessions#new'
+  post 'entrar', to: 'sessions#create'
+
+  resources :users, only: [:new, :create]
   
   resources :caixas
   

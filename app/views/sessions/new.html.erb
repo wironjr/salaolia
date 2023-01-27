@@ -1,0 +1,18 @@
+<h1>Salão Lia</h1>
+<%= form_for :session, url: entrar_path, method: :post do |form| %>
+
+  <div class="mb-3">
+    <%= form.label :nome, class:'form-label' %>
+    <%= form.text_field :nome, placehoder:'Nome', class:'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :password, class:'form-label' %>
+    <%= form.text_field :password, placehoder:'Senha', class:'form-control' %>
+  </div>
+
+  <div class="mt-5">
+    <%= form.submit 'Entrar', class:'btn btn-primary' %>
+  </div>
+
+<% end %>

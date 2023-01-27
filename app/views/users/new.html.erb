@@ -1,0 +1,25 @@
+<h3 class="mb-4">Cadastro de Usuários</h3>
+<%= form_for @user do |form| %>
+
+	<%= render 'layouts/error_messages', object: form.object %>
+
+	<div class="mb-3">
+			<%= form.label :nome, class:'form-label' %>
+			<%= form.text_field :nome, class:'form-control' %>
+	</div>
+
+	<div class="mb-3">
+			<%= form.label :password, 'Senha', class:'form-label' %>
+			<%= form.text_field :password, class:'form-control' %>
+	</div>
+	
+	<div class="mb-3">
+			<%= form.label :password_confirmation, 'Confirme a senha', class:'form-label' %>
+			<%= form.text_field :password_confirmation, class:'form-control moeda' %>
+	</div>
+
+	<div class="mt-5">
+			<%= form.submit 'Cadastrar', class:'btn btn-primary' %>
+			<%= link_to "Voltar", servicos_do_dia_servicos_path, class:'btn btn-primary' %>
+	</div>
+<% end %>
