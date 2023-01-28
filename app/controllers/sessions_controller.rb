@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   def new
-
+    redirect_to root_path(current_user) if user_signed_in?
   end
 
   def create
@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    sing_out
+    sign_out
     flash[:success] = 'Logout com sucesso!'
     redirect_to entrar_path
   end

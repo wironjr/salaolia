@@ -1,8 +1,11 @@
-<nav class="navbar bg-light shadow ">
-  <div class="container-fluid ">
-    <a class="navbar-brand" href="/">
-      <%= image_tag("lia_normal.png", width:'100') %> 
-    </a>
-    <div class="fw-bold" style="color: #572057">Av. Padre Anchieta, 123</div>
-  </div>
-</nav>
+<% if user_signed_in? %>
+  <nav class="navbar bg-light shadow ">
+    <div class="container-fluid ">
+      <a class="navbar-brand" href="/">
+        <%= image_tag("lia_normal.png", width:'100') %> 
+      </a>
+        <div class="fw-bold text-center" style="color: #572057">Bem-vindo(a), <%= current_user.nome.capitalize %></div>
+        <%= link_to 'Sair', sair_path, class:'text-white badge text-wrap', style:'text-decoration: none; font-size: 0.9rem; width: 3rem; height: auto; background-color: #572057 !important', method: :delete %>
+    </div>
+  </nav>
+<% end %>

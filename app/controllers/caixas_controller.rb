@@ -1,4 +1,5 @@
 class CaixasController < ApplicationController
+  before_action :require_logged_in_user
   before_action :set_caixa, only: %i[ show edit update destroy ]
 
   # GET /caixas or /caixas.json

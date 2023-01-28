@@ -1,21 +1,26 @@
-<h3 class="mb-4">Cadastro de Usuários</h3>
+<h3 class="mb-4 mt-2">Cadastro de Usuários</h3>
 <%= form_for @user do |form| %>
 
 	<%= render 'layouts/error_messages', object: form.object %>
 
 	<div class="mb-3">
-			<%= form.label :nome, class:'form-label' %>
+			<%= form.label :nome,'Usuário', class:'form-label' %>
 			<%= form.text_field :nome, class:'form-control' %>
 	</div>
 
 	<div class="mb-3">
 			<%= form.label :password, 'Senha', class:'form-label' %>
-			<%= form.text_field :password, class:'form-control' %>
+			<%= form.password_field :password, class:'form-control' %>
 	</div>
 	
 	<div class="mb-3">
 			<%= form.label :password_confirmation, 'Confirme a senha', class:'form-label' %>
-			<%= form.text_field :password_confirmation, class:'form-control moeda' %>
+			<%= form.password_field :password_confirmation, class:'form-control moeda' %>
+	</div>
+
+	<div class=" ">
+		<input type="checkbox" id="mostrar-senha" >
+		<label for="mostrar-senha" style="font-size: 0.7rem; " class="">Mostar senhas</label>
 	</div>
 
 	<div class="mt-5">
@@ -23,3 +28,33 @@
 			<%= link_to "Voltar", servicos_do_dia_servicos_path, class:'btn btn-primary' %>
 	</div>
 <% end %>
+
+<h3 class="mt-3">Usuários cadastrados</h3>
+
+<table class=" table">
+  <thead class="table-light">
+    <tr>
+      <th scope="col">Data</th>
+      <th scope="col">Nome Usuário</th> 
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_all.each do |user| %>
+      <tr>
+        <td scope="row"><%= user.created_at.strftime('%d/%m/%Y') %></td>
+        <td scope="row"><%= user.nome %></td> 
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<script>
+var input = document.querySelector('#user_password_confirmation');
+var input2 = document.querySelector('#user_password');
+var img = document.querySelector('#mostrar-senha');
+img.addEventListener('click', function () {
+  input.type = input.type == 'text' ? 'password' : 'text';
+  input2.type = input2.type == 'text' ? 'password' : 'text';
+});
+</script>

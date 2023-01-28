@@ -1,18 +1,40 @@
-<h1>Salão Lia</h1>
-<%= form_for :session, url: entrar_path, method: :post do |form| %>
+<div class="bg-login" style=" height: 100vh">
+	<h1 class="text-center mt-5">Salão</h1>
+	<div class="d-flex justify-content-center">
+		<div class="d-flex justify-content-center mt-3 card shadow" style="width: 20rem">
 
-  <div class="mb-3">
-    <%= form.label :nome, class:'form-label' %>
-    <%= form.text_field :nome, placehoder:'Nome', class:'form-control' %>
-  </div>
+			<%= form_for :session, url: entrar_path, method: :post do |form| %>
+			<div class="p-3">
+				<div class="">
+					<%= form.label :nome, 'NOME', class:'form-label', style:'font-size: 0.8rem' %>
+					<%= form.text_field :nome, class:'form-control', style:'border-radius: 15px;' %>
+				</div>
+			</div>
 
-  <div class="mb-3">
-    <%= form.label :password, class:'form-label' %>
-    <%= form.text_field :password, placehoder:'Senha', class:'form-control' %>
-  </div>
+			<div class="p-3 mb-3">
+					<%= form.label :password, 'SENHA', class:'form-label', style:'font-size: 0.8rem' %>
+					<%= form.password_field :password,  class:'form-control', style:'border-radius: 15px' %>
+					
+					<div class="mt-1 p-2">
+						<input type="checkbox" id="mostrar-senha" >
+						<label for="mostrar-senha" style="font-size: 0.7rem; " class="">Mostar senha</label>
+					</div>
 
-  <div class="mt-5">
-    <%= form.submit 'Entrar', class:'btn btn-primary' %>
-  </div>
+			<div class="mt-2 p-1">
+					<%= form.submit 'Entrar', class:'btn btn-primary' %>
+			</div>
 
-<% end %>
+			<div class="float-end" style="margin-top: -60px"><%= image_tag("lia_normal.png", width:'100') %></div>
+
+			<% end %>
+		</div>
+	</div>
+</div>
+
+<script>
+var input = document.querySelector('#session_password');
+var img = document.querySelector('#mostrar-senha');
+img.addEventListener('click', function () {
+  input.type = input.type == 'text' ? 'password' : 'text';
+});
+</script>

@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
-
+	before_action :require_logged_in_user
+	
 def new
   @user = User.new
+  @user_all = User.all
 end
 
 def create
