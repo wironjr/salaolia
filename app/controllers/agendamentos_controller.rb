@@ -14,6 +14,10 @@ class AgendamentosController < ApplicationController
     @agendamentos = Agendamento.all.order(data: :desc)
   end
 
+  def futuros
+    @agendamentos = Agendamento.where("to_char(data,'YYYY-MM-DD') > '#{Time.now.to_date.to_s}'").order(data: :desc)
+  end
+
   def json_teste   
     @agendamentos = Agendamento.where(data: params[:data])
     render json: JSON.parse(@agendamentos.to_json)

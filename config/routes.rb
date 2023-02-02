@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   
   resources :agendamentos do
     get :todos, on: :collection
+    get :futuros, on: :collection
     get :json_teste, on: :collection
   end
   resources :servicos do

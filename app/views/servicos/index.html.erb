@@ -11,7 +11,7 @@
   </div>
 </div>
 
-<a href="/servicos/new" class="fs-1 float-end" title="Adicionar novo serviço"><i class="bi bi-plus-circle-fill"></i></a>
+<a href="/servicos/new" class="fs-1 float-end" title="Adicionar novo serviço"><i class="bi bi-plus-circle-fill color-roxo"></i></a>
 
 <table class="table">
   <thead>
@@ -34,8 +34,8 @@
         <td><%= numero_real(servico.valor,2) %></td>
         <td>
           <%#= link_to 'Show', servico %>
-          <%= link_to '', edit_servico_path(servico), class:'btn btn-primary rounded-pill bi bi-pencil-square text-white fs-6' %>
-          <%= link_to '', servico, method: :delete, data: { confirm: 'Deseja apagar esse serviço?' }, class: 'btn btn-primary rounded-pill bi bi-trash3-fill' %>
+          <%= link_to '', edit_servico_path(servico), class:'btn btn-primary rounded-pill bi bi-pencil-square text-white fs-6 bg-roxo' %>
+          <%= link_to '', servico, method: :delete, data: { confirm: 'Deseja apagar esse serviço?' }, class: 'bg-roxo btn btn-primary rounded-pill bi bi-trash3-fill' %>
         </td>
       </tr>
     <% end %>
