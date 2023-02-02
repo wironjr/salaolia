@@ -9,6 +9,12 @@ pt-BR:
         password_confirmation: 'Confirmação da senha'
       servico:
         servico: 'Serviço'
+      agendamento:
+        nome: 'Nome'
+        data: 'Data'
+        servico: 'Serviço'
+        hora: 'Hora'
+
       
     errors:
       messages:

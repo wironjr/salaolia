@@ -1,0 +1,35 @@
+<h3 class="mt-2 mb-5">TODOS AGENDAMENTOS</h3>
+
+<div class="card shadow p-2 mt-4">
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width:3rem">Data</th>
+        <th>Hora</th>
+        <th>Nome</th>
+        <th>Telefone</th>
+        <th>Serviço</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @agendamentos.each do |agendamento| %>
+        <tr>
+          <td><%= agendamento.data.strftime('%d/%m/%Y') %></td>
+          <td><%= agendamento.hora %></td>
+          <td><%= agendamento.nome.upcase %></td>
+          <td><%= agendamento.telefone %></td>
+          <td><%= agendamento.servico.upcase %></td>
+          <td>
+            <%#= link_to 'Show', agendamento %>
+            <%= link_to '', edit_agendamento_path(agendamento), class: 'btn btn-primary rounded-pill bi bi-pencil-square text-white fs-6'  %>
+            <%= link_to '', agendamento, method: :delete, class: 'btn btn-primary rounded-pill bi bi-trash3-fill', data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
+  <%= link_to 'Voltar', agendamentos_path, class: 'btn btn-primary mt-4'  %>

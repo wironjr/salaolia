@@ -1,5 +1,5 @@
 class ServicosController < ApplicationController
-  before_action :require_logged_in_user
+  before_action :require_logged_in_user#, except: [:index] 
   before_action :set_servico, only: %i[ show edit update destroy ]
 
   # GET /servicos or /servicos.json

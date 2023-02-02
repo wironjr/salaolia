@@ -30,6 +30,7 @@
 
   <div class="container">
 
+
     <% flash.each do |message_type, message| %>
       <div class="alert alert-<%=message_type%> alert-dismissible fade show text-center w-50 m-auto fixed-top mt-3 shadow" id="alert-app" role="alert">
         <i class="bi bi-exclamation-circle fs-5"></i> <span class="fs-5"> <%= message %> </span>
@@ -37,9 +38,16 @@
       </div>
     <% end %>
 
+
     <%= yield %>
 
   </div>
+
+ 
+ 
+  <%= render 'layouts/footer' %>
+  
+
 
   <script>
   $(".alert").ready(function(){			

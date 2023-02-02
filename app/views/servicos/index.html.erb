@@ -29,12 +29,12 @@
     <% @servicos.each do |servico| %>
       <tr>
         <td><%= servico.data.strftime('%d/%m/%Y') %></td>
-        <td><%= servico.nome_cliente %></td>
-        <td><%= servico.servico %></td>
+        <td><%= servico.nome_cliente.upcase %></td>
+        <td><%= servico.servico.upcase %></td>
         <td><%= numero_real(servico.valor,2) %></td>
         <td>
           <%#= link_to 'Show', servico %>
-          <%= link_to '', edit_servico_path(servico), class:'btn btn-primary rounded-pill bi bi-pencil-square text-white fs-6 rou' %>
+          <%= link_to '', edit_servico_path(servico), class:'btn btn-primary rounded-pill bi bi-pencil-square text-white fs-6' %>
           <%= link_to '', servico, method: :delete, data: { confirm: 'Deseja apagar esse serviço?' }, class: 'btn btn-primary rounded-pill bi bi-trash3-fill' %>
         </td>
       </tr>

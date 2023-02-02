@@ -9,12 +9,12 @@
 
   <div class="mb-3">
     <%= form.label :nome_cliente, class:'form-label' %>
-    <%= form.text_field :nome_cliente, class:'form-control' %>
+    <%= form.text_field :nome_cliente, class:'form-control text-uppercase' %>
   </div>
 
   <div class="mb-3">
     <%= form.label :servico, 'Serviço', class:'form-label' %>
-    <%= form.text_field :servico, class:'form-control' %>
+    <%= form.text_field :servico, class:'form-control text-uppercase' %>
   </div>
   
   <div class="mb-3">
@@ -23,8 +23,8 @@
   </div>
 
   <div class="mt-5">
-    <%= form.submit 'Salvar', class:'btn btn-primary' %>
-    <%= link_to "Voltar", servicos_do_dia_servicos_path, class:'btn btn-primary' %>
+    <%= form.submit 'Salvar', class:'btn btn-primary', style:'background-color: #572057 !important; border: none' %>
+    <%= link_to "Voltar", servicos_do_dia_servicos_path, class:'btn btn-primary', style:'background-color: #572057 !important; border: none' %>
   </div>
 
 <% end %>

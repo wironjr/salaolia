@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_26_231644) do
+ActiveRecord::Schema.define(version: 2023_01_29_204420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "agendamentos", force: :cascade do |t|
+    t.date "data"
+    t.string "hora", default: "", null: false
+    t.string "nome"
+    t.string "servico"
+    t.string "telefone"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "caixas", force: :cascade do |t|
     t.date "data"

@@ -1,0 +1,55 @@
+
+
+<a href="/agendamentos/new" class="fs-1 float-end" title="Adicionar novo agendamento"><i class="bi bi-plus-circle-fill"></i></a>
+<a href="/agendamentos/todos" class="fs-1 float-end me-2" title="Mostrar todos os agendamentos"><i class="bi bi-filter-circle-fill"></i></a>
+<h3 class="mt-2 mb-5">AGENDAMENTOS DO DIA</h3>
+
+
+<% if @qnt_agendamentos >= 1 %>
+  <div>Você tem <b class="text-danger"><%= pluralize(@qnt_agendamentos, 'serviço agendado', 'serviços agendados') %></b> hoje.</div>
+<% else %>
+  <div>Você ainda não tem serviços agendados hoje.</div>
+<% end %>
+
+<div class="card shadow p-2 mt-4">
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width:3rem">Data</th>
+        <th>Hora</th>
+        <th>Nome</th>
+        <th>Telefone</th>
+        <th>Serviço</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @agendamentos_dia.each do |agendamento| %>
+        <tr>
+          <td><%= agendamento.data.strftime('%d/%m/%Y') %></td>
+          <td><%= agendamento.hora %></td>
+          <td><%= agendamento.nome.upcase %></td>
+          <td><span class="telefone"><%= agendamento.telefone %></span>
+            <a href="https://wa.me/55<%= agendamento.telefone %>" target="_blank" class="badge rounded-pill bg-success" title="Abrir whatsapp do cliente">
+              <i class="bi bi-whatsapp text-white"></i>
+            </a>
+          </td>
+          <td><%= agendamento.servico.upcase %></td>
+          <td>
+            <%#= link_to 'Show', agendamento %>
+            <%= link_to '', edit_agendamento_path(agendamento), class: 'btn btn-primary rounded-pill bi bi-pencil-square text-white fs-6'  %>
+            <%= link_to '', agendamento, method: :delete, class: 'btn btn-primary rounded-pill bi bi-trash3-fill', data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<script>
+$('.telefone').mask('(00) 00000-0000')
+</script>
+
+
+
