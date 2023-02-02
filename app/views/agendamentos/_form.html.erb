@@ -10,7 +10,7 @@
 
   <div class="mb-3">
     <%= form.label :hora, 'Horários disponíveis', class:'form-label' %>
-    <%= form.select :hora, [["8h"],["10h"],["12h"],["14h"],["16h"],["18h"]],{:include_blank => "SELECIONE O HORÁRIO"}, class:'form-control' %>
+    <%= form.select :hora, [["8h"],["10h"],["12h"],["14h"],["16h"],["18h"]],{}, class:'form-control' %>
   </div>
 
   <div class="mb-3">
@@ -48,6 +48,11 @@ $('#agendamento_data').change(function() {
 //debugger
 
     if(json.length >= 1){
+      $("#agendamento_hora").empty();
+      array = ["8h","10h","12h","14h","16h","18h"]
+      for (i = 0; i < array.length; i++) {
+        $('#agendamento_hora').append('<option>' + array[i] + '</option>');
+      }
       for (var i = 0; i<json.length; i++){
         $('#agendamento_hora option').each(function() {
           if ( $(this).val() == json[i]['hora'] ) {
@@ -83,6 +88,7 @@ $('#agendamento_data').ready(function() {
 //debugger
 
     if(json.length >= 1){
+      
       for (var i = 0; i<json.length; i++){
         $('#agendamento_hora option').each(function() {
           if ( $(this).val() == json[i]['hora'] ) {
