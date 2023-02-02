@@ -28,15 +28,16 @@
   <tbody>
     <% @servicos.each do |servico| %>
       <tr>
-        <td><%= servico.data.strftime('%d/%m/%Y') %></td>
-        <td><%= servico.nome_cliente.upcase %></td>
-        <td><%= servico.servico.upcase %></td>
-        <td><%= numero_real(servico.valor,2) %></td>
+        <td><div><b class="ocultar-res">Data</b> <div><%= servico.data.strftime('%d/%m/%Y') %></div></div></td>
+        <td><div><b class="ocultar-res">Cliente</b> <div><%= servico.nome_cliente.upcase %></div></div></td>
+        <td><div><b class="ocultar-res">Serviço</b> <div><%= servico.servico.upcase %></div></div></td></td>
+        <td><div><b class="ocultar-res">Valor</b> <div><%= numero_real(servico.valor,2) %></div></div></td></td>
         <td>
           <%#= link_to 'Show', servico %>
           <%= link_to '', edit_servico_path(servico), class:'btn btn-primary rounded-pill bi bi-pencil-square text-white fs-6 bg-roxo' %>
           <%= link_to '', servico, method: :delete, data: { confirm: 'Deseja apagar esse serviço?' }, class: 'bg-roxo btn btn-primary rounded-pill bi bi-trash3-fill' %>
         </td>
+        <td class="border-botton ocultar-res"></td>
       </tr>
     <% end %>
   </tbody>

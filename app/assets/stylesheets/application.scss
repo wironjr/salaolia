@@ -22,3 +22,65 @@
 .color-roxo{
   color: #572057 !important;
 }
+
+////responsive
+.ocultar-res{
+  display: none !important;
+}
+
+@media screen and (max-width: 360px){
+  .table {
+   display: flex !important;
+  }
+  .table tr td{
+   display: flex !important;
+  }
+
+  .table th{
+   display: none !important;
+  }
+
+  .font-size8{
+    font-size: 0.8rem;
+  }
+
+  .hide--{
+    display: none !important;
+  }
+
+  .ocultar-res{
+    display: block !important;
+  }
+
+  .border-botton{
+    border-bottom: 1px solid black !important;
+  }
+}
+@media screen and (max-width: 428px){
+  .table {
+   display: flex !important;
+  }
+  .table tr td{
+   display: flex !important;
+  }
+
+  .table th{
+   display: none !important;
+  }
+
+  .font-size8{
+    font-size: 0.8rem;
+  }
+
+  .hide--{
+    display: none !important;
+  }
+
+  .ocultar-res{
+    display: block !important;
+  }
+
+  .border-botton{
+    border-bottom: 1px solid black !important;
+  }
+}

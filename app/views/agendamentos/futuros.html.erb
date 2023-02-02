@@ -16,16 +16,22 @@
     <tbody>
       <% @agendamentos.each do |agendamento| %>
         <tr>
-          <td><%= agendamento.data.strftime('%d/%m/%Y') %></td>
-          <td><%= agendamento.hora %></td>
-          <td><%= agendamento.nome.upcase %></td>
-          <td><%= agendamento.telefone %></td>
-          <td><%= agendamento.servico.upcase %></td>
+          <td><div><b class="ocultar-res">Data</b> <div><%= agendamento.data.strftime('%d/%m/%Y') %></div></div></td>
+          <td><div><b class="ocultar-res">Hora</b> <div><%= agendamento.hora %></div></div></td>
+          <td><div><b class="ocultar-res">Cliente</b> <div><%= agendamento.nome.upcase %></div></div></td>
+          <td><td><div><b class="ocultar-res">Telefone</b> <div><span class="telefone"><%= agendamento.telefone %></span>
+            <a href="https://wa.me/55<%= agendamento.telefone %>" target="_blank" class="badge rounded-pill bg-success" title="Abrir whatsapp do cliente">
+              <i class="bi bi-whatsapp text-white"></i>
+            </a>
+            </div></div>
+          </td>
+          <td><div><b class="ocultar-res">Serviço</b> <div><%= agendamento.servico.upcase %></div></div></td>
           <td>
             <%#= link_to 'Show', agendamento %>
             <%= link_to '', edit_agendamento_path(agendamento), class: 'btn btn-primary rounded-pill bi bi-pencil-square text-white fs-6 bg-roxo'  %>
             <%= link_to '', agendamento, method: :delete, class: 'btn btn-primary rounded-pill bi bi-trash3-fill bg-roxo', data: { confirm: 'Are you sure?' } %>
           </td>
+          <td class="border-botton ocultar-res"></td>
         </tr>
       <% end %>
     </tbody>
