@@ -19,7 +19,7 @@
           <td><div><b class="ocultar-res">Data</b> <div><%= agendamento.data.strftime('%d/%m/%Y') %></div></div></td>
           <td><div><b class="ocultar-res">Hora</b> <div><%= agendamento.hora %></div></div></td>
           <td><div><b class="ocultar-res">Cliente</b> <div><%= agendamento.nome.upcase %></div></div></td>
-          <td><td><div><b class="ocultar-res">Telefone</b> <div><span class="telefone"><%= agendamento.telefone %></span>
+          <td><div><b class="ocultar-res">Telefone</b> <div><span class="telefone"><%= agendamento.telefone %></span>
             <a href="https://wa.me/55<%= agendamento.telefone %>" target="_blank" class="badge rounded-pill bg-success" title="Abrir whatsapp do cliente">
               <i class="bi bi-whatsapp text-white"></i>
             </a>
