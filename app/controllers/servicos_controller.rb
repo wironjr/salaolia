@@ -1,6 +1,7 @@
 class ServicosController < ApplicationController
   before_action :require_logged_in_user#, except: [:index] 
   before_action :set_servico, only: %i[ show edit update destroy ]
+  include Pagy::Backend
 
   # GET /servicos or /servicos.json
   def index
@@ -8,6 +9,8 @@ class ServicosController < ApplicationController
     @servicos_do_dia = Servico.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'")
     @valor_total_dia = @servicos_do_dia.map(&:valor).map(&:to_f).sum
     @valor_total = @servicos.map(&:valor).map(&:to_f).sum
+
+    @pagy, @servicos = pagy(@servicos)
   end
 
   def caixa_total

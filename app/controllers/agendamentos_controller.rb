@@ -1,5 +1,6 @@
 class AgendamentosController < ApplicationController
   before_action :require_logged_in_user, except: [ :new, :create, :json_teste ] 
+  include Pagy::Backend
 
 
   # GET /agendamentos or /agendamentos.json
@@ -12,6 +13,7 @@ class AgendamentosController < ApplicationController
 
   def todos
     @agendamentos = Agendamento.all.order(data: :desc)
+    @pagy, @agendamentos = pagy(@agendamentos)
   end
 
   def futuros

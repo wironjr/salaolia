@@ -1,5 +1,6 @@
 @import "bootstrap";
 
+
 .bg-login{
   background-image: url('bg-login.jpg');
   background-size: cover;
@@ -23,6 +24,17 @@
   color: #572057 !important;
 }
 
+.pagination {
+  --#{$prefix}pagination-color: #fff !important;
+  --#{$prefix}pagination-bg: #572057 !important;
+  --#{$prefix}pagination-active-bg: #8b8a8a !important;
+  --#{$prefix}pagination-active-border-color: none !important;
+}
+
+.page-item{
+  color: #572057;
+}
+
 ////responsive
 .ocultar-res{
   display: none !important;
@@ -32,7 +44,6 @@
   .table {
     display: flex !important;
     width: 100% !important;
-    border: 1px solid red !important;
    }
 
    .table tbody tr{
@@ -49,6 +60,9 @@
      width: 100% !important;
    }
  
+   .div-pagy{
+    width: 50% !important;
+   }
  
   
   .table th{

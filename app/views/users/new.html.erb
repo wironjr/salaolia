@@ -23,15 +23,17 @@
 		<label for="mostrar-senha" style="font-size: 0.7rem; " class="">Mostar senhas</label>
 	</div>
 
-	<div class="mt-5">
-			<%= form.submit 'Cadastrar', class:'btn btn-primary' %>
-			<%= link_to "Voltar", servicos_do_dia_servicos_path, class:'btn btn-primary' %>
+	<div class="mt-5 mb-5">
+			<%= form.submit 'Cadastrar', class:'btn btn-primary', style:'background-color: #572057 !important; border: none' %>
+			<%= link_to "Voltar", servicos_do_dia_servicos_path, class:'btn btn-primary', style:'background-color: #572057 !important; border: none' %>
 	</div>
 <% end %>
 
+<hr>
 <h3 class="mt-3">Usuários cadastrados</h3>
+<hr>
 
-<table class=" table">
+<table class="table">
   <thead class="table-light">
     <tr>
       <th scope="col">Data</th>
