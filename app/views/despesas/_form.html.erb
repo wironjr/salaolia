@@ -1,0 +1,35 @@
+<%= form_with(model: despesa) do |form| %>
+
+ <%= render 'layouts/error_messages', object: form.object %>
+
+ <div class="mb-3">
+    <%= form.label :data, class:'form-label' %>
+    <%= form.date_field :data, value: Date.today, class:'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :descricao, class:'form-label' %>
+    <%= form.text_field :descricao, class:'form-control text-uppercase' %>
+  </div>
+  
+  <div class="mb-3">
+    <%= form.label :valor, class:'form-label' %>
+    <%= form.text_field :valor, class:'form-control moeda' %>
+  </div>
+
+  <div class="mt-5">
+    <%= form.submit 'Salvar', class:'btn btn-primary', style:'background-color: #572057 !important; border: none' %>
+    <%= link_to "Voltar", servicos_do_dia_servicos_path, class:'btn btn-primary', style:'background-color: #572057 !important; border: none' %>
+  </div>
+
+<% end %>
+
+<script>
+ $(function() {
+      $(".moeda").maskMoney({
+        prefix:'R$ ',
+        thousands:'.',
+        decimal:','
+      });
+  });
+</script>

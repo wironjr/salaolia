@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   
   root to: "static_pages#index" #para pagina inicial
   
+  resources :despesas
+  
   resources :agendamentos do
     get :todos, on: :collection
     get :futuros, on: :collection

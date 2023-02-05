@@ -1,0 +1,32 @@
+<h1>Despesas do dia</h1>
+<div class="p-2 mt-4 card shadow">
+  <table class="table ">
+    <thead class="hide--">
+      <tr>
+        <th style="width:3rem">Data</th>
+        <th style="width:37rem">Descrição</th>
+        <th style="width:15rem">Valor</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @despesas.each do |despesa|  %>
+        <tr>
+          <td><div><b class="ocultar-res">Data</b> <div><%= despesa.data.strftime('%d/%m/%Y') %></div></div></td>
+          <td><div><b class="ocultar-res">Descrição</b> <div><%= despesa.descricao.upcase %></div></div></td>
+          <td><div><b class="ocultar-res">Valor</b> <div><%= numero_real(despesa.valor,2) %></div></div></td></td>
+          <td>
+            <%#= link_to 'Show', despesa %>
+            <%= link_to '', edit_despesa_path(despesa), class:'btn btn-primary rounded-pill bi bi-pencil-square text-white fs-6 bg-roxo' %>
+            <%= link_to '', despesa, method: :delete, data: { confirm: 'Deseja apagar esse serviço?' }, class: 'bg-roxo btn btn-primary rounded-pill bi bi-trash3-fill' %>
+          </td>
+          <td class="border-botton ocultar-res"></td>
+        </tr>
+       
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<br>

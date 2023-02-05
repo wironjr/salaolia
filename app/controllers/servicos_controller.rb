@@ -21,6 +21,11 @@ class ServicosController < ApplicationController
   def servicos_do_dia
     @servicos_do_dia = Servico.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").order(created_at: :desc)
     @valor_total_dia = @servicos_do_dia.map(&:valor).map(&:to_f).sum
+    
+    @despesas = Despesa.all
+    @despesas_valor = @despesas.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").map(&:valor).map(&:to_f).sum
+  
+    @caixa_total_dia = @valor_total_dia - @despesas_valor
   end
 
   # GET /servicos/1 or /servicos/1.json
