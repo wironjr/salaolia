@@ -35,6 +35,10 @@ class ServicosController < ApplicationController
   # GET /servicos/new
   def new
     @servico = Servico.new
+    @servicos_prestados = ["Escova Inteligente", "Escova Orgânica", 
+    "Botox", "Hidratação", "Hidratação com Escova","Coloração", "Coloração com Escova",
+    "Escova","Prancha","Escova com Prancha","Pé e mão","Mão","Pé","Spa dos pés",
+  "Blindagem", "Banho de gel","Unhas postiças", "Unhas acrílico","Manutenção acrílico"]
   end
 
   # GET /servicos/1/edit

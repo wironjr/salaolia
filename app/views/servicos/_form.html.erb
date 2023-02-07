@@ -14,7 +14,7 @@
 
   <div class="mb-3">
     <%= form.label :servico, 'Serviço', class:'form-label' %>
-    <%= form.text_field :servico, class:'form-control text-uppercase' %>
+    <%= form.select :servico, @servicos_prestados,{}, class:'form-control text-uppercase' %>
   </div>
   
   <div class="mb-3">

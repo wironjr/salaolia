@@ -32,6 +32,10 @@ class AgendamentosController < ApplicationController
   # GET /agendamentos/new
   def new
     @agendamento = Agendamento.new
+    @servicos = ["Escova Inteligente - R$120,00", "Escova Orgânica - R$120,00", 
+    "Botox - R$80,00", "Hidratação - R$40,00", "Hidratação com Escova - R$60,00","Coloração - R$30,00", "Coloração com Escova - R$45,00",
+    "Escova - R$25,00","Prancha - R$25,00","Escova com Prancha - R$35,00","Pé e mão - R$35,00","Mão - R$20,00","Pé - R$20,00","Spa dos pés - R$50,00",
+  "Blindagem - R$50,00", "Banho de gel - R$40,00","Unhas postiças - R$40,00", "Unhas acrílico - R$100,00","Manutenção acrílico - R$80,00"]
   end
 
   # GET /agendamentos/1/edit
@@ -42,6 +46,7 @@ class AgendamentosController < ApplicationController
   def create
     @agendamento = Agendamento.new(agendamento_params)
     @agendamento.telefone = @agendamento.telefone.gsub('(','').gsub(')','').gsub(' ','').gsub('-','')
+    @agendamento.servico = @agendamento.servico.gsub(/\-.+/, "")
     
     if Agendamento.where(hora: params[:agendamento][:hora]).where(data: params[:agendamento][:data]).present?
       flash[:danger] = "Horário indisponível."
