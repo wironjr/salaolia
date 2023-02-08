@@ -7,7 +7,7 @@
 
 
 <% if @qnt_agendamentos >= 1 %>
-  <div>Você tem <b class="text-danger"><%= pluralize(@qnt_agendamentos, 'serviço agendado', 'serviços agendados') %></b> hoje.</div>
+  <div>Você tem <b class="color-roxo"><%= pluralize(@qnt_agendamentos, 'serviço agendado', 'serviços agendados') %></b> hoje.</div>
 <% else %>
   <div>Você ainda não tem serviços agendados hoje.</div>
 <% end %>

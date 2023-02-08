@@ -35,10 +35,16 @@ class ServicosController < ApplicationController
   # GET /servicos/new
   def new
     @servico = Servico.new
-    @servicos_prestados = ["Escova Inteligente", "Escova Orgânica", 
-    "Botox", "Hidratação", "Hidratação com Escova","Coloração", "Coloração com Escova",
-    "Escova","Prancha","Escova com Prancha","Pé e mão","Mão","Pé","Spa dos pés",
-  "Blindagem", "Banho de gel","Unhas postiças", "Unhas acrílico","Manutenção acrílico"]
+    
+    @servicos = ["Escova Inteligente - R$100,00", "Escova Orgânica - R$100,00", 
+    "Botox - R$80,00", "Hidratação - R$40,00", "Hidratação com Escova - R$60,00","Coloração - R$30,00", "Coloração com Escova - R$45,00",
+    "Escova - R$25,00","Prancha - R$25,00","Escova com Prancha - R$35,00","Pé e mão - R$35,00","Mão - R$20,00","Pé - R$20,00","Spa dos pés - R$60,00",
+    "Blindagem - R$50,00", "Banho de gel - R$40,00","Unhas postiças - R$40,00", "Unhas acrílico - R$100,00","Manutenção acrílico - R$80,00"]
+
+    @servicos_prestados = []
+    @servicos.each do |servico|
+      @servicos_prestados << servico.gsub(/\-.+/, "")
+    end
   end
 
   # GET /servicos/1/edit
