@@ -25,7 +25,8 @@
 
   <div class="mb-3">
     <%= form.label :servico, 'Serviço', class:'form-label' %>
-    <%= form.select :servico, @servicos,{}, class:'form-control text-uppercase' %>
+    <%= form.select :servico, @servicos, {:include_blank => "Selecione o serviço"}, class:'form-control text-uppercase' %>
+    <%#= form.select :servico, @servicos, {:include_blank => "Selecione o serviço"}, class:'form-control text-uppercase' if params[:action] == 'create' %>
   </div>
   
 
