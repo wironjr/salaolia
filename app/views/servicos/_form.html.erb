@@ -4,22 +4,23 @@
 
   <div class="mb-3">
     <%= form.label :data, class:'form-label' %>
-    <%= form.date_field :data, value: Date.today, class:'form-control' %>
+    <%= form.date_field :data, value: params[:data].present? ? params[:data] : Date.today, class:'form-control' %>
   </div>
 
   <div class="mb-3">
     <%= form.label :nome_cliente, class:'form-label' %>
-    <%= form.text_field :nome_cliente, class:'form-control text-uppercase' %>
+    <%= form.text_field :nome_cliente, value: params[:nome], class:'form-control text-uppercase' %>
   </div>
 
   <div class="mb-3">
     <%= form.label :servico, 'Serviço', class:'form-label' %>
-    <%= form.select :servico, @servicos_prestados,{}, class:'form-control text-uppercase' %>
+    <%= form.select :servico, @servicos_prestados,{}, value: params[:servico], class:'form-control text-uppercase' unless params[:servico].present? %>
+    <%= form.select :servico, [params[:servico]],{}, class:'form-control text-uppercase' if params[:servico].present? %>
   </div>
   
   <div class="mb-3">
     <%= form.label :valor, class:'form-label' %>
-    <%= form.text_field :valor, class:'form-control moeda' %>
+    <%= form.text_field :valor, value: @servico_valor, class:'form-control moeda' %>
   </div>
 
   <div class="mt-5">
@@ -30,11 +31,14 @@
 <% end %>
 
 <script>
+
+
  $(function() {
       $(".moeda").maskMoney({
         prefix:'R$ ',
         thousands:'.',
         decimal:','
       });
+      $('#servico_valor').focus()
   });
 </script>

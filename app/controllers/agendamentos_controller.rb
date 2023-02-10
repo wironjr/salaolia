@@ -8,6 +8,7 @@ class AgendamentosController < ApplicationController
     @agendamentos = Agendamento.all
     @agendamentos_dia = Agendamento.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'")
     @qnt_agendamentos = @agendamentos_dia.count
+    @servico = Servico.all
     
   end
 
