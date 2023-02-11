@@ -1,7 +1,8 @@
 <%= form_with(model: agendamento) do |form| %>
 
+<% if params[:action] == 'new' %>
   <%= render 'layouts/error_messages', object: form.object %>
-
+<% end %>
 
   <div class="mb-3">
     <%= form.label :data, class:'form-label' %>
@@ -26,7 +27,6 @@
   <div class="mb-3">
     <%= form.label :servico, 'Serviço', class:'form-label' %>
     <%= form.select :servico, @servicos, {:include_blank => "Selecione o serviço"}, class:'form-control text-uppercase' %>
-    <%#= form.select :servico, @servicos, {:include_blank => "Selecione o serviço"}, class:'form-control text-uppercase' if params[:action] == 'create' %>
   </div>
   
 
@@ -36,76 +36,78 @@
   </div>
 <% end %>
 
-<script>
+<% unless params[:action] == 'edit' %>
+  <script>
 
-$('#agendamento_data').change(function() {
-  
-  fetch("/agendamentos/json_teste?data="+ $('#agendamento_data').val())
-  .then( response => response.json())
-  .then( json => {
-
-    var htmlOptions = ""
+  $('#agendamento_data').change(function() {
     
-//debugger
+    fetch("/agendamentos/json_teste?data="+ $('#agendamento_data').val())
+    .then( response => response.json())
+    .then( json => {
 
-    if(json.length >= 1){
-      $("#agendamento_hora").empty();
-      array = ["8h","10h","12h","14h","16h","18h"]
-      for (i = 0; i < array.length; i++) {
-        $('#agendamento_hora').append('<option>' + array[i] + '</option>');
-      }
-      for (var i = 0; i<json.length; i++){
-        $('#agendamento_hora option').each(function() {
-          if ( $(this).val() == json[i]['hora'] ) {
-          $(this).remove();
-          }
-        });
-      }
-        var x = $('#agendamento_hora').val()
-        if ((x == "")||(x == null)) {
-        $('#agendamento_hora').append('<option>Sem hora dispónivel</option>');
-        return false;
-        };
-    }else{
-      $("#agendamento_hora").empty();
-      array = ["8h","10h","12h","14h","16h","18h"]
-      for (i = 0; i < array.length; i++) {
-        $('#agendamento_hora').append('<option>' + array[i] + '</option>');
-      }
-    }
-
-});
-
-})
-
-$('#agendamento_data').ready(function() {
-  
-  fetch("/agendamentos/json_teste?data="+ $('#agendamento_data').val())
-  .then( response => response.json())
-  .then( json => {
-
-    var htmlOptions = ""
-    
-//debugger
-
-    if(json.length >= 1){
+      var htmlOptions = ""
       
-      for (var i = 0; i<json.length; i++){
-        $('#agendamento_hora option').each(function() {
-          if ( $(this).val() == json[i]['hora'] ) {
-          $(this).remove();
-          }
-        });
-      }
-    }else{
-      $("#agendamento_hora").empty();
-      array = ["8h","10h","12h","14h","16h","18h"]
-      for (i = 0; i < array.length; i++) {
-        $('#agendamento_hora').append('<option>' + array[i] + '</option>');
-      }
-    }
+  //debugger
 
-});
+      if(json.length >= 1){
+        $("#agendamento_hora").empty();
+        array = ["8h","10h","12h","14h","16h","18h"]
+        for (i = 0; i < array.length; i++) {
+          $('#agendamento_hora').append('<option>' + array[i] + '</option>');
+        }
+        for (var i = 0; i<json.length; i++){
+          $('#agendamento_hora option').each(function() {
+            if ( $(this).val() == json[i]['hora'] ) {
+            $(this).remove();
+            }
+          });
+        }
+          var x = $('#agendamento_hora').val()
+          if ((x == "")||(x == null)) {
+          $('#agendamento_hora').append('<option>Sem hora dispónivel</option>');
+          return false;
+          };
+      }else{
+        $("#agendamento_hora").empty();
+        array = ["8h","10h","12h","14h","16h","18h"]
+        for (i = 0; i < array.length; i++) {
+          $('#agendamento_hora').append('<option>' + array[i] + '</option>');
+        }
+      }
 
-})
-</script>
+  });
+
+  })
+
+  $('#agendamento_data').ready(function() {
+    
+    fetch("/agendamentos/json_teste?data="+ $('#agendamento_data').val())
+    .then( response => response.json())
+    .then( json => {
+
+      var htmlOptions = ""
+      
+  //debugger
+
+      if(json.length >= 1){
+        
+        for (var i = 0; i<json.length; i++){
+          $('#agendamento_hora option').each(function() {
+            if ( $(this).val() == json[i]['hora'] ) {
+            $(this).remove();
+            }
+          });
+        }
+      }else{
+        $("#agendamento_hora").empty();
+        array = ["8h","10h","12h","14h","16h","18h"]
+        for (i = 0; i < array.length; i++) {
+          $('#agendamento_hora').append('<option>' + array[i] + '</option>');
+        }
+      }
+
+  });
+
+  })
+  </script>
+<% end %>

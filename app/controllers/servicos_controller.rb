@@ -52,13 +52,23 @@ class ServicosController < ApplicationController
       @servicos_prestados << servico
       
       if params[:servico].present?
-        @servico_valor = servico_valor if params[:servico] == servico
+        @servico_valor = servico_valor if params[:servico].gsub(/\-.+/, "") == servico
       end
+      
     end
   end
 
   # GET /servicos/1/edit
   def edit
+    @servicos = ["Escova Inteligente - R$100,00", "Escova Orgânica - R$100,00", 
+    "Botox - R$80,00", "Hidratação - R$40,00", "Hidratação com Escova - R$60,00","Coloração - R$30,00", "Coloração com Escova - R$45,00",
+    "Escova - R$25,00","Prancha - R$25,00","Escova com Prancha - R$35,00","Pé e mão - R$35,00","Mão - R$20,00","Pé - R$20,00","Spa dos pés - R$60,00",
+    "Blindagem - R$50,00", "Banho de gel - R$40,00","Unhas postiças - R$40,00", "Unhas acrílico - R$100,00","Manutenção acrílico - R$80,00"]
+
+    @servicos_prestados = []
+    @servicos.each do |servico|
+      @servicos_prestados << servico.gsub(/\-.+/, "")
+    end
   end
 
   # POST /servicos or /servicos.json
@@ -76,16 +86,32 @@ class ServicosController < ApplicationController
       @servicos_prestados << servico.gsub(/\-.+/, "")
     end
 
-    if @servico.save
-      flash[:success] = "Serviço criado com sucesso!" 
+    if Servico.where(nome_cliente: params[:servico][:nome_cliente]).present? && Servico.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").present?
+      flash[:danger] = "Serviço já cadastrado!" 
       redirect_to servicos_do_dia_servicos_path
     else
-      render 'new'
+      if @servico.save
+        flash[:success] = "Serviço criado com sucesso!" 
+        redirect_to servicos_do_dia_servicos_path
+      else
+        render 'new'
+      end
     end
   end
 
   # PATCH/PUT /servicos/1 or /servicos/1.json
   def update
+    params[:servico][:valor] = params[:servico][:valor].gsub('R$','').gsub('.','').gsub(',','.').gsub(' ', '')
+
+    @servicos = ["Escova Inteligente - R$100,00", "Escova Orgânica - R$100,00", 
+    "Botox - R$80,00", "Hidratação - R$40,00", "Hidratação com Escova - R$60,00","Coloração - R$30,00", "Coloração com Escova - R$45,00",
+    "Escova - R$25,00","Prancha - R$25,00","Escova com Prancha - R$35,00","Pé e mão - R$35,00","Mão - R$20,00","Pé - R$20,00","Spa dos pés - R$60,00",
+    "Blindagem - R$50,00", "Banho de gel - R$40,00","Unhas postiças - R$40,00", "Unhas acrílico - R$100,00","Manutenção acrílico - R$80,00"]
+
+    @servicos_prestados = []
+    @servicos.each do |servico|
+      @servicos_prestados << servico.gsub(/\-.+/, "")
+    end
     
     if @servico.update(servico_params)
       flash[:success] = "Serviço atualizado com sucesso!" 

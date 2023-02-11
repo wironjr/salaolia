@@ -1,5 +1,6 @@
 class AgendamentosController < ApplicationController
-  before_action :require_logged_in_user, except: [ :new, :create, :json_teste ] 
+  before_action :require_logged_in_user, except: [ :new, :create, :json_teste ]
+  before_action :set_agendamento, only: %i[ show edit update destroy ]
   include Pagy::Backend
 
 
@@ -41,13 +42,18 @@ class AgendamentosController < ApplicationController
 
   # GET /agendamentos/1/edit
   def edit
+     @servicos = ["Escova Inteligente - R$100,00", "Escova Orgânica - R$100,00", 
+    "Botox - R$80,00", "Hidratação - R$40,00", "Hidratação com Escova - R$60,00","Coloração - R$30,00", "Coloração com Escova - R$45,00",
+    "Escova - R$25,00","Prancha - R$25,00","Escova com Prancha - R$35,00","Pé e mão - R$35,00","Mão - R$20,00","Pé - R$20,00","Spa dos pés - R$60,00",
+    "Blindagem - R$50,00", "Banho de gel - R$40,00","Unhas postiças - R$40,00", "Unhas acrílico - R$100,00","Manutenção acrílico - R$80,00"]
+    
   end
 
   # POST /agendamentos or /agendamentos.json
   def create
     @agendamento = Agendamento.new(agendamento_params)
     @agendamento.telefone = @agendamento.telefone.gsub('(','').gsub(')','').gsub(' ','').gsub('-','')
-    @agendamento.servico = @agendamento.servico.gsub(/\-.+/, "")
+    
     @servicos = ["Escova Inteligente - R$100,00", "Escova Orgânica - R$100,00", 
     "Botox - R$80,00", "Hidratação - R$40,00", "Hidratação com Escova - R$60,00","Coloração - R$30,00", "Coloração com Escova - R$45,00",
     "Escova - R$25,00","Prancha - R$25,00","Escova com Prancha - R$35,00","Pé e mão - R$35,00","Mão - R$20,00","Pé - R$20,00","Spa dos pés - R$60,00",
@@ -70,7 +76,13 @@ class AgendamentosController < ApplicationController
 
   # PATCH/PUT /agendamentos/1 or /agendamentos/1.json
   def update
-   
+    @agendamento.telefone = @agendamento.telefone.gsub('(','').gsub(')','').gsub(' ','').gsub('-','')
+    
+    @servicos = ["Escova Inteligente - R$100,00", "Escova Orgânica - R$100,00", 
+    "Botox - R$80,00", "Hidratação - R$40,00", "Hidratação com Escova - R$60,00","Coloração - R$30,00", "Coloração com Escova - R$45,00",
+    "Escova - R$25,00","Prancha - R$25,00","Escova com Prancha - R$35,00","Pé e mão - R$35,00","Mão - R$20,00","Pé - R$20,00","Spa dos pés - R$60,00",
+    "Blindagem - R$50,00", "Banho de gel - R$40,00","Unhas postiças - R$40,00", "Unhas acrílico - R$100,00","Manutenção acrílico - R$80,00"]
+    
     if @agendamento.update(agendamento_params)
       flash[:success] = "Agendamento editado com sucesso!" 
     else

@@ -35,7 +35,9 @@ end
 
   # PATCH/PUT /despesas/1 or /despesas/1.json
   def update
-    if @despesa.update(despesa_params)
+    params[:despesa][:valor] = params[:despesa][:valor].gsub('R$','').gsub('.','').gsub(',','.').gsub(' ', '')
+    
+    if @despesa.update(despesa_params)  
       flash[:success] = "Despesa editada com sucesso!" 
       redirect_to servicos_do_dia_servicos_path
     else

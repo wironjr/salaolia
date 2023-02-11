@@ -37,7 +37,7 @@
             </a>
             </div></div>
           </td>
-          <td><div><b class="ocultar-res">Serviço</b> <div><%= agendamento.servico&.upcase %></div></div></td>
+          <td><div><b class="ocultar-res">Serviço</b> <div><%= agendamento.servico&.upcase.gsub(/\-.+/, "") %></div></div></td>
           <td>
             <%#= link_to 'Show', agendamento %>
             <%= link_to '', new_servico_path(servico: agendamento.servico, nome: agendamento.nome.upcase, data: agendamento.data), class: 'btn btn-primary rounded-pill bi bi-wallet2 text-white fs-6 bg-roxo'  %>
