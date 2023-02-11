@@ -85,6 +85,7 @@ class AgendamentosController < ApplicationController
     
     if @agendamento.update(agendamento_params)
       flash[:success] = "Agendamento editado com sucesso!" 
+      redirect_to agendamentos_path
     else
       render 'new'
     end
