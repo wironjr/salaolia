@@ -35,6 +35,9 @@
     <%#= link_to "Voltar", _path, class:'btn btn-primary' %>
   </div>
 <% end %>
+<script>
+$('#agendamento_telefone').mask('(00) 00000-0000')
+</script>
 
 <% unless params[:action] == 'edit' %>
   <script>
@@ -90,7 +93,11 @@
   //debugger
 
       if(json.length >= 1){
-        
+        $("#agendamento_hora").empty();
+        array = ["8h","10h","12h","14h","16h","18h"]
+        for (i = 0; i < array.length; i++) {
+          $('#agendamento_hora').append('<option>' + array[i] + '</option>');
+        }
         for (var i = 0; i<json.length; i++){
           $('#agendamento_hora option').each(function() {
             if ( $(this).val() == json[i]['hora'] ) {
@@ -98,6 +105,11 @@
             }
           });
         }
+          var x = $('#agendamento_hora').val()
+          if ((x == "")||(x == null)) {
+          $('#agendamento_hora').append('<option>Sem hora dispónivel</option>');
+          return false;
+          };
       }else{
         $("#agendamento_hora").empty();
         array = ["8h","10h","12h","14h","16h","18h"]
@@ -105,6 +117,7 @@
           $('#agendamento_hora').append('<option>' + array[i] + '</option>');
         }
       }
+
 
   });
 

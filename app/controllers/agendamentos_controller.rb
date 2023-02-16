@@ -7,10 +7,11 @@ class AgendamentosController < ApplicationController
   # GET /agendamentos or /agendamentos.json
   def index
     @agendamentos = Agendamento.all
-    @agendamentos_dia = Agendamento.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'")
+    
+    @agendamentos_dia = @agendamentos.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").sort_by { |obj| obj.hora.to_i }
+    
     @qnt_agendamentos = @agendamentos_dia.count
     @servico = Servico.all
-    
   end
 
   def todos
@@ -53,7 +54,7 @@ class AgendamentosController < ApplicationController
   def create
     @agendamento = Agendamento.new(agendamento_params)
     @agendamento.telefone = @agendamento.telefone.gsub('(','').gsub(')','').gsub(' ','').gsub('-','')
-    
+
     @servicos = ["Escova Inteligente - R$100,00", "Escova Orgânica - R$100,00", 
     "Botox - R$80,00", "Hidratação - R$40,00", "Hidratação com Escova - R$60,00","Coloração - R$30,00", "Coloração com Escova - R$45,00",
     "Escova - R$25,00","Prancha - R$25,00","Escova com Prancha - R$35,00","Pé e mão - R$35,00","Mão - R$20,00","Pé - R$20,00","Spa dos pés - R$60,00",
