@@ -35,6 +35,24 @@
   color: #572057;
 }
 
+
+////teste validaçção
+input.aviso{
+  background-image: url('aviso.png');
+  background-size: 5%;
+  background-position: right 5% bottom 45%;;
+  background-repeat: no-repeat;
+
+
+}
+
+.error_message {
+  color: #e50027;
+  font-size: 0.7rem;
+  margin-top: 5px;
+}
+/// 
+
 ////responsive
 .ocultar-res{
   display: none !important;

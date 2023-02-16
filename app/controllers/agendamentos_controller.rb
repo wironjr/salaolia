@@ -63,6 +63,9 @@ class AgendamentosController < ApplicationController
     if Agendamento.where(hora: params[:agendamento][:hora]).where(data: params[:agendamento][:data]).present?
       flash[:danger] = "Horário indisponível."
       redirect_to new_agendamento_path
+    elsif params[:agendamento][:hora] == "Sem hora dispónivel"
+      flash[:danger] = "Sem hora dispónivel para o dia selecionado."
+      render 'new'
     else
       if @agendamento.save
         flash[:success] = "Agendamento criado com sucesso!"

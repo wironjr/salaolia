@@ -1,12 +1,9 @@
 <%= form_with(model: agendamento) do |form| %>
 
-
-  <%= render 'layouts/error_messages', object: form.object %>
-
-
   <div class="mb-3">
     <%= form.label :data, class:'form-label' %>
-    <%= form.date_field :data, value: Date.today, class:'form-control' %>
+
+    <%= form.date_field :data, value: params[:agendamento].present? ? params[:agendamento][:data] : Date.today , class:'form-control' %>
   </div>
 
   <div class="mb-3">
@@ -15,16 +12,39 @@
   </div>
 
   <div class="mb-3">
+    <% if @agendamento.errors.has_key?(:nome) %>
+      <div class="error_message float-end">Obrigatório</div>
+    <% end %>
     <%= form.label :nome, class:'form-label' %>
-    <%= form.text_field :nome, class:'form-control moeda text-uppercase' %>
+
+    <% if @agendamento.errors.has_key?(:nome) %>
+      <%= form.text_field :nome, class:"form-control moeda text-uppercase aviso" %>
+    <% else %>
+      <%= form.text_field :nome, class:"form-control moeda text-uppercase" %>
+    <% end %>
+   
+    
+
   </div>
 
   <div class="mb-3">
+    <% if @agendamento.errors.has_key?(:telefone) %>
+      <div class="error_message float-end" id="error_msg">Obrigatório</div>
+    <% end %>
     <%= form.label :telefone, class:'form-label' %>
-    <%= form.text_field :telefone, class:'form-control moeda', onkeypress:"$(this).mask('(00) 00000-0000')" %>
+
+    <% if @agendamento.errors.has_key?(:telefone) %>
+      <%= form.text_field :telefone, class:'form-control moeda aviso', onkeypress:"$(this).mask('(00) 00000-0000')" %>
+    <% else %>
+      <%= form.text_field :telefone, class:'form-control moeda', onkeypress:"$(this).mask('(00) 00000-0000')" %>
+    <% end %>
+   
   </div>
 
   <div class="mb-3">
+    <% if @agendamento.errors.has_key?(:servico) %>
+      <div class="error_message float-end" id="error_msg2">Selecione um serviço</div>
+    <% end %>
     <%= form.label :servico, 'Serviço', class:'form-label' %>
     <%= form.select :servico, @servicos, {:include_blank => "Selecione o serviço"}, class:'form-control text-uppercase' %>
   </div>
@@ -37,6 +57,45 @@
 <% end %>
 <script>
 $('#agendamento_telefone').mask('(00) 00000-0000')
+</script>
+
+<script>
+  const nameField = document.querySelector('#agendamento_nome');
+  const telefone = document.querySelector('#agendamento_telefone');
+  const servico = document.querySelector('#agendamento_servico');
+  const nameError = document.querySelector('.error_message');
+  const nameError1 = document.querySelector('#error_msg');
+  const nameError2 = document.querySelector('#error_msg2');
+
+  nameField.addEventListener('input', () => {
+    if (nameField.value.trim() !== '') {
+      nameError.style.display = 'none';
+      nameField.classList.remove ("aviso")
+    } else {
+      nameError.style.display = 'block';
+      nameField.classList.add ("aviso")
+    }
+  });
+
+  telefone.addEventListener('input', () => {
+    if (telefone.value.trim() !== '') {
+      nameError1.style.display = 'none';
+      telefone.classList.remove ("aviso")
+    } else {
+      nameError1.style.display = 'block';
+      telefone.classList.add ("aviso")
+    }
+  });
+
+  servico.addEventListener('input', () => {
+    if (servico.value.trim() !== '') {
+      nameError2.style.display = 'none';
+      servico.classList.remove ("aviso")
+    } else {
+      nameError2.style.display = 'block';
+      servico.classList.add ("aviso")
+    }
+  });
 </script>
 
 <% unless params[:action] == 'edit' %>
