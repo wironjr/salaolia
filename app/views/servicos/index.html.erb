@@ -1,7 +1,7 @@
 <div class="fs-2 text-uppercase text-center mb-3">Todos os serviços</div>
 
 <a href="/servicos/new" class="fs-1 float-end" title="Adicionar novo serviço"><i class="bi bi-plus-circle-fill color-roxo"></i></a>
-<div class="d-flex justify-content-center mb-3">
+<div class="d-flex justify-content-center mb-5">
   <div class="card text-center" style="width: 10rem;">
     <div class="card-header">
       Valor do caixa
@@ -11,6 +11,24 @@
     </div>
   </div>
 </div>
+
+<div>
+  <form>
+  <div class="row mb-4">
+    <div class="col-sm-2">
+      <input type="text" name="nome_search" placeholder="Buscar por nome..." class="form-control ">
+    </div>
+    <div class="col-sm-2">
+      <input type="text" name="servico_search" placeholder="Buscar por serviço..." class="form-control ">
+    </div>
+    <div class="col-sm-4">
+      <button type="submit" class="btn bg-roxo text-white ms-3">Buscar</button>
+      <a href="/servicos" class="btn bg-roxo text-white ms-2">Limpar Filtro</a>
+    </div>
+  </div>
+  </form>
+</div>
+
 
 <div class="p-2 mt-4 card shadow">
   <table class="table">

@@ -33,7 +33,31 @@
 		
 		<div class="d-flex justify-content-center mt-5">
 			<div class="card text-center shadow" style="width: 15rem;">
-				<div class="card-header">
+				<div class="card-header bg-primary text-white">
+				AGENDA DO <b>DIA</b>
+				</div>
+				<div class="card-body ">
+				<h5 class="card-title"><%= pluralize(@qnt_agendamentos_dia, 'agendamento', 'agendamentos') %></h5>
+				</div>
+			</div>
+		</div>
+
+    <% if @qnt_agendamentos_futuros > 0 %>
+      <div class="d-flex justify-content-center mt-3">
+        <div class="card text-center shadow" style="width: 15rem;">
+          <div class="card-header bg-primary text-white">
+          AGENDA <b>FUTURA</b>
+          </div>
+          <div class="card-body">
+          <h5 class="card-title"><%= pluralize(@qnt_agendamentos_futuros, 'agendamento', 'agendamentos') %></h5>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+		<div class="d-flex justify-content-center mt-3">
+			<div class="card text-center shadow" style="width: 15rem;">
+				<div class="card-header bg-success text-white">
 				VALOR DO CAIXA <b>DIÁRIO</b>
 				</div>
 				<div class="card-body">
@@ -44,7 +68,7 @@
 
 		<div class="d-flex justify-content-center mt-3">
 			<div class="card text-center shadow" style="width: 15rem;">
-				<div class="card-header">
+				<div class="card-header bg-danger text-white">
 				DESPESAS DO <b>DIA</b>
 				</div>
 				<div class="card-body">
@@ -55,7 +79,7 @@
 
 		<div class="d-flex justify-content-center mt-3">
 			<div class="card text-center shadow" style="width: 15rem;">
-				<div class="card-header">
+				<div class="card-header bg-secondary text-white">
 				VALOR DO LUCRO <b>TOTAL </b>
 				</div>
 				<div class="card-body">

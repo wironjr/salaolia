@@ -5,10 +5,18 @@ class ServicosController < ApplicationController
 
   # GET /servicos or /servicos.json
   def index
-    @servicos = Servico.all.order(data: :desc)
+    @servicos = Servico.all
+    
     @servicos_do_dia = Servico.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'")
     @valor_total_dia = @servicos_do_dia.map(&:valor).map(&:to_f).sum
     @valor_total = @servicos.map(&:valor).map(&:to_f).sum
+    
+    if params[:nome_search] || params[:servico_search]
+      @servicos = @servicos.where('nome_cliente ILIKE ?', "%#{params[:nome_search]}%") if params[:nome_search].present?
+      @servicos = @servicos.where('servico ILIKE ?', "%#{params[:servico_search]}%") if params[:servico_search].present?
+    else
+      @servicos = Servico.all.order(data: :desc)
+    end
 
     @pagy, @servicos = pagy(@servicos)
   end
@@ -19,13 +27,24 @@ class ServicosController < ApplicationController
   end
 
   def servicos_do_dia
-    @servicos_do_dia = Servico.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").order(created_at: :desc)
+    @servicos_do_dia = Servico.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'")
+
+    
     @valor_total_dia = @servicos_do_dia.map(&:valor).map(&:to_f).sum
     
     @despesas = Despesa.all
     @despesas_valor = @despesas.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").map(&:valor).map(&:to_f).sum
-  
+    
     @caixa_total_dia = @valor_total_dia - @despesas_valor
+
+    if params[:nome_search] || params[:servico_search]
+      @servicos_do_dia = @servicos_do_dia.where('nome_cliente ILIKE ?', "%#{params[:nome_search]}%") if params[:nome_search].present?
+      @servicos_do_dia = @servicos_do_dia.where('servico ILIKE ?', "%#{params[:servico_search]}%") if params[:servico_search].present?
+    else
+      @servicos_do_dia = Servico.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").order(created_at: :desc)
+    end
+
+    @pagy, @servicos_do_dia = pagy(@servicos_do_dia)
   end
 
   # GET /servicos/1 or /servicos/1.json
@@ -86,7 +105,7 @@ class ServicosController < ApplicationController
       @servicos_prestados << servico.gsub(/\-.+/, "")
     end
 
-    if Servico.where(nome_cliente: params[:servico][:nome_cliente]).present? && Servico.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").present?
+    if Servico.where(nome_cliente: params[:servico][:nome_cliente]).where(servico: params[:servico][:servico]).present? && Servico.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").present?
       flash[:danger] = "Serviço já cadastrado!" 
       redirect_to servicos_do_dia_servicos_path
     else

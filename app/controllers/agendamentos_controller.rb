@@ -8,7 +8,12 @@ class AgendamentosController < ApplicationController
   def index
     @agendamentos = current_user.agendamentos
     
-    @agendamentos_dia = @agendamentos.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").sort_by { |obj| obj.hora.to_i }
+    if params[:nome_search] || params[:servico_search]
+      @agendamentos_dia = @agendamentos.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").where('nome ILIKE ?', "%#{params[:nome_search]}%").sort_by { |obj| obj.hora.to_i } if params[:nome_search].present?
+      @agendamentos_dia = @agendamentos.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").where('servico ILIKE ?', "%#{params[:servico_search]}%").sort_by { |obj| obj.hora.to_i } if params[:servico_search].present?    
+    else
+      @agendamentos_dia = @agendamentos.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").sort_by { |obj| obj.hora.to_i }
+    end
     
     @qnt_agendamentos = @agendamentos_dia.count
 

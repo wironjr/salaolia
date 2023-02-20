@@ -13,6 +13,11 @@ class StaticPagesController < ApplicationController
 		@despesas_do_dia = @despesas.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").map(&:valor).map(&:to_f).sum
 	
 		@valor_total_lucro = @valor_total - @despesas_valor
+
+		@agendamentos = current_user.agendamentos
+		@qnt_agendamentos_dia = @agendamentos.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").count
+		@qnt_agendamentos_futuros = @agendamentos.where("to_char(data,'YYYY-MM-DD') > '#{Time.now.to_date.to_s}'").count
+		
 	end
 
 end
