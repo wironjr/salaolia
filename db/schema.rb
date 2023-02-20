@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_04_014610) do
+ActiveRecord::Schema.define(version: 2023_02_20_151938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 2023_02_04_014610) do
     t.string "telefone"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_agendamentos_on_user_id"
   end
 
   create_table "caixas", force: :cascade do |t|
@@ -58,4 +60,5 @@ ActiveRecord::Schema.define(version: 2023_02_04_014610) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "agendamentos", "users"
 end

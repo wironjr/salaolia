@@ -6,11 +6,14 @@ class AgendamentosController < ApplicationController
 
   # GET /agendamentos or /agendamentos.json
   def index
-    @agendamentos = Agendamento.all
+    @agendamentos = current_user.agendamentos
     
     @agendamentos_dia = @agendamentos.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").sort_by { |obj| obj.hora.to_i }
     
     @qnt_agendamentos = @agendamentos_dia.count
+
+    @qnt_agendamentos_futuros = @agendamentos.where("to_char(data,'YYYY-MM-DD') > '#{Time.now.to_date.to_s}'").count
+
     @servico = Servico.all
   end
 
@@ -20,7 +23,7 @@ class AgendamentosController < ApplicationController
   end
 
   def futuros
-    @agendamentos = Agendamento.where("to_char(data,'YYYY-MM-DD') > '#{Time.now.to_date.to_s}'").order(data: :desc)
+    @agendamentos = current_user.agendamentos.where("to_char(data,'YYYY-MM-DD') > '#{Time.now.to_date.to_s}'").order(data: :desc)
   end
 
   def json_teste   
@@ -52,7 +55,7 @@ class AgendamentosController < ApplicationController
 
   # POST /agendamentos or /agendamentos.json
   def create
-    @agendamento = Agendamento.new(agendamento_params)
+    @agendamento = current_user.agendamentos.build(agendamento_params)
     @agendamento.telefone = @agendamento.telefone.gsub('(','').gsub(')','').gsub(' ','').gsub('-','')
 
     @servicos = ["Escova Inteligente - R$100,00", "Escova Orgânica - R$100,00", 
@@ -106,7 +109,7 @@ class AgendamentosController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_agendamento
-      @agendamento = Agendamento.find(params[:id])
+      @agendamento = current_user.agendamentos.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

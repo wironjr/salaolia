@@ -5,12 +5,12 @@
 <a href="/agendamentos/todos" class="fs-1 float-end me-2 color-roxo" title="Mostrar todos os agendamentos"><i class="bi bi-filter-circle-fill"></i></a>
 <h3 class="mt-2 mb-5">AGENDAMENTOS DO DIA</h3>
 
-
 <% if @qnt_agendamentos >= 1 %>
   <div>Você tem <b class="color-roxo"><%= pluralize(@qnt_agendamentos, 'serviço agendado', 'serviços agendados') %></b> hoje.</div>
 <% else %>
   <div>Você ainda não tem serviços agendados hoje.</div>
 <% end %>
+
 
 <div class="p-2 mt-4 card shadow">
   <table class="table ">
@@ -49,6 +49,12 @@
       <% end %>
     </tbody>
   </table>
+</div>
+
+<div class="mt-4">
+  <% if @qnt_agendamentos_futuros >= 1 %>
+    <a href="/agendamentos/futuros" style="text-decoration: none" class="text-black"><div>Você tem <b class="color-roxo"><%= pluralize(@qnt_agendamentos_futuros, 'serviço agendado', 'serviços agendados') %></b> futuro.</div></a>
+  <% end %>
 </div>
 
 <script>
