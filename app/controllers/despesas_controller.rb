@@ -23,7 +23,9 @@ class DespesasController < ApplicationController
   # POST /despesas or /despesas.json
   def create
     @despesa = Despesa.new(despesa_params)
-    @despesa.valor = @despesa.valor.gsub('R$','').gsub('.','').gsub(',','.').gsub(' ', '')
+    params[:despesa][:valor_real] = params[:despesa][:valor_real].gsub('R$','').gsub('.','').gsub(',','.').gsub(' ', '')
+    @despesa.valor_real = params[:despesa][:valor_real]
+
     if @despesa.save
       flash[:success] = "Despesa criada com sucesso!" 
       redirect_to servicos_do_dia_servicos_path
@@ -35,7 +37,8 @@ end
 
   # PATCH/PUT /despesas/1 or /despesas/1.json
   def update
-    params[:despesa][:valor] = params[:despesa][:valor].gsub('R$','').gsub('.','').gsub(',','.').gsub(' ', '')
+    params[:despesa][:valor_real] = params[:despesa][:valor_real].gsub('R$','').gsub('.','').gsub(',','.').gsub(' ', '')
+    @despesa.valor_real = params[:despesa][:valor_real]
     
     if @despesa.update(despesa_params)  
       flash[:success] = "Despesa editada com sucesso!" 
@@ -62,6 +65,6 @@ end
 
     # Only allow a list of trusted parameters through.
     def despesa_params
-      params.require(:despesa).permit(:descricao, :valor, :data)
+      params.require(:despesa).permit(:descricao, :valor, :data, :valor_real)
     end
 end

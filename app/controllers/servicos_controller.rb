@@ -33,7 +33,7 @@ class ServicosController < ApplicationController
     @valor_total_dia = @servicos_do_dia.map(&:valor).map(&:to_f).sum
     
     @despesas = Despesa.all
-    @despesas_valor = @despesas.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").map(&:valor).map(&:to_f).sum
+    @despesas_valor = @despesas.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").map(&:valor_real).sum
     
     @caixa_total_dia = @valor_total_dia - @despesas_valor
 
@@ -70,8 +70,8 @@ class ServicosController < ApplicationController
       
       @servicos_prestados << servico
       
-      if params[:servico].present?
-        @servico_valor = servico_valor if params[:servico].gsub(/\-.+/, "") == servico
+      if params[:servico2].present?
+        @servico_valor = servico_valor if params[:servico2].gsub(/\-.+/, "") == servico
       end
       
     end

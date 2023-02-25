@@ -1,0 +1,64 @@
+<h3 class="mb-4 mt-2">Relatórios de despesas</h3>
+
+<%#= pie_chart Servico.group(:servico).count, label: 'Quantidade de serviços solicitados' %>
+
+<%#= pie_chart Despesa.group(:descricao).sum(:valor_real), label: "Despesas por Categoria" %>
+
+<%#= column_chart Despesa.group(:descricao).sum(:valor_real), prefix: "R$ ", decimal: ",", precision: 4, empty: "Sem dados", loading: "Caregando dados...", id:'teste' %>
+
+
+<div id="chart-container"></div>
+
+<h4 class="text-center mt-3">O valor do lucro do mês atual é <b><%= numero_real(@lucro_mes, 2) %></b></h4>
+
+<script>
+  var chartData = <%= @chart_data.to_json.html_safe %>;
+
+
+  Highcharts.chart('chart-container', {
+    chart: {
+      type: 'column'
+    },
+    title: {
+      text: 'Valor dos serviços e despesas do mês atual'
+    },
+    xAxis: {
+      categories: (function() {
+        // Gera um array de labels com os dias do mês atual
+        var daysInMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
+        var labels = [];
+        for (var i = 1; i <= daysInMonth; i++) {
+          labels.push(i);
+        }
+        return labels;
+      })()
+    },
+    yAxis: {
+      title: {
+        text: 'Valores'
+      }
+    },
+    legend: {
+      enabled: true
+    },
+    plotOptions: {
+      series: {
+        dataLabels: {
+          enabled: true,
+          format: 'R${point.y:.2f}'
+        }
+      }
+      },
+    series: [
+      {
+        name: 'Serviços',
+        data: chartData.servico
+      },
+      {
+        name: 'Despesas',
+        data: chartData.despesa
+      }
+    ]
+  });
+</script>
+

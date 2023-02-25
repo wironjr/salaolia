@@ -15,14 +15,14 @@
 
   <div class="mb-3">
     <%= form.label :servico, 'Serviço', class:'form-label' %>
-    <%= form.select :servico, @servicos_prestados,{}, class:'form-control text-uppercase' unless params[:servico].present? %>
-    <%= form.select :servico, [params[:servico].gsub(/\-.+/, "")],{}, class:'form-control text-uppercase' if params[:servico].present? %>
+    <%= form.select :servico, @servicos_prestados,{}, class:'form-control text-uppercase' unless params[:servico2].present? %>
+    <%= form.select :servico, [params[:servico2]],{}, class:'form-control text-uppercase' if params[:servico2].present? %>
   </div>
   
   <div class="mb-3">
     <%= form.label :valor, class:'form-label' %>
-    <%= form.text_field :valor, class:'form-control moeda' unless params[:servico].present?%>
-    <%= form.text_field :valor, value: @servico_valor, class:'form-control moeda' if params[:servico].present?%>
+    <%= form.text_field :valor, class:'form-control moeda' unless params[:servico2].present?%>
+    <%= form.text_field :valor, value: @servico_valor, class:'form-control moeda' if params[:servico2].present?%>
   </div>
 
   <div class="mt-5">

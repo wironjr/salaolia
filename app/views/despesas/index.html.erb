@@ -15,7 +15,7 @@
         <tr>
           <td><div><b class="ocultar-res">Data</b> <div><%= despesa.data.strftime('%d/%m/%Y') %></div></div></td>
           <td><div><b class="ocultar-res">Descrição</b> <div><%= despesa.descricao.upcase %></div></div></td>
-          <td><div><b class="ocultar-res">Valor</b> <div><%= numero_real(despesa.valor,2) %></div></div></td></td>
+          <td><div><b class="ocultar-res">Valor</b> <div><%= numero_real(despesa.valor_real,2) %></div></div></td></td>
           <td>
             <%#= link_to 'Show', despesa %>
             <%= link_to '', edit_despesa_path(despesa), class:'btn btn-primary rounded-pill bi bi-pencil-square text-white fs-6 bg-roxo' %>

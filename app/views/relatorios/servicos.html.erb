@@ -1,0 +1,52 @@
+<h3 class="mb-4 mt-2">Relatórios de serviços</h3>
+
+<%#= pie_chart Servico.group(:servico).count, label: 'Quantidade de serviços solicitados' %>
+
+<%#= column_chart Servico.group(:servico).count, label: 'Quantidade de serviço' %>
+
+
+<div id="chart"></div>
+
+<script type="text/javascript">
+  var chart = Highcharts.chart('chart', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Total de servicos'
+    },
+    xAxis: {
+        categories: <%= @servico.keys.to_json.html_safe %>
+    },
+    yAxis: {
+        title: {
+            text: 'Quantidade'
+        },
+        labels: {
+            formatter: function() {
+              return Highcharts.numberFormat(this.value, 0, ',', '.');
+            }
+        }
+    },
+    legend: {
+      enabled: false
+    },
+    plotOptions: {
+      series: {
+        dataLabels: {
+          enabled: true,
+          
+        }
+      }
+      },
+    series: [{
+        name: 'Valor Total',
+        data: <%= @servico.values %>
+    }]
+  });
+</script>
+
+<div class="mt-5">
+  Nesse gráfico mostra a quantidade de serviços requisitados na plataforma.<br>
+  O serviço com maior número de requisições é <b><%= @servico_mais_usado %></b>
+</div>

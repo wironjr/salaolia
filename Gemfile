@@ -25,6 +25,11 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+gem 'chartkick'
+gem 'numeraljs-rails'
+gem 'highcharts-rails'
+gem 'groupdate', '~> 2.5', '>= 2.5.2'
+
 gem 'bootstrap', '~> 5.2', '>= 5.2.3'
 gem 'jquery-rails'
 

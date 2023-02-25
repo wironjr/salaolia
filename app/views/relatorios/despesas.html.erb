@@ -1,0 +1,57 @@
+<h3 class="mb-4 mt-2">Relatórios de despesas</h3>
+
+<%#= pie_chart Servico.group(:servico).count, label: 'Quantidade de serviços solicitados' %>
+
+<%#= pie_chart Despesa.group(:descricao).sum(:valor_real), label: "Despesas por Categoria" %>
+
+<%#= column_chart Despesa.group(:descricao).sum(:valor_real), prefix: "R$ ", decimal: ",", precision: 4, empty: "Sem dados", loading: "Caregando dados...", id:'teste' %>
+
+<%#= column_chart Despesa.group(:descricao).sum(:valor_real), library: { yAxis: { title: { text: "Valor total (R$)" } }, xAxis: { title: { text: "Descrição" } }, plotOptions: { column: { dataLabels: { enabled: true, format: "R$ {point.y:.2f}" } } } } %>
+
+
+<div id="chart"></div>
+
+<script type="text/javascript">
+  var chart = Highcharts.chart('chart', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Total de Despesas'
+    },
+    xAxis: {
+        categories: <%= @despesas.keys.to_json.html_safe %>
+    },
+    yAxis: {
+        title: {
+            text: 'Valor Total (R$)'
+        },
+        labels: {
+            formatter: function() {
+              return Highcharts.numberFormat(this.value, 3, ',', '.');
+            }
+        }
+    },
+    legend: {
+      enabled: false
+    },
+    plotOptions: {
+      series: {
+        dataLabels: {
+          enabled: true,
+          format: 'R${point.y:.2f}'
+        }
+      }
+      },
+    series: [{
+        name: 'Valor Total',
+        data: <%= @despesas.values %>
+    }]
+  });
+</script>
+
+
+<div class="mt-5">
+  Nesse gráfico mostra a quantidade de despesas requisitados na plataforma.<br>
+  O serviço com maior número de requisições é <b><%= @despesa_mais_usada %></b>
+</div>

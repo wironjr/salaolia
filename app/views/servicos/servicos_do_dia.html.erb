@@ -65,7 +65,7 @@
         <tr>
           <td><div><b class="ocultar-res">Data</b> <div><%= servico.data.strftime('%d/%m/%Y') %></div></div></td>
           <td><div><b class="ocultar-res">Cliente</b> <div><%= servico.nome_cliente.upcase %></div></div></td>
-          <td><div><b class="ocultar-res">Serviço</b> <div><%= servico.servico.upcase %></div></div></td></td>
+          <td><div><b class="ocultar-res">Serviço</b> <div><%= servico.servico.gsub(/\-.+/, "").upcase %></div></div></td></td>
           <td><div><b class="ocultar-res">Valor</b> <div><%= numero_real(servico.valor,2) %></div></div></td></td>
           <td>
             <%#= link_to 'Show', servico %>
