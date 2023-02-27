@@ -9,15 +9,19 @@ class ServicosController < ApplicationController
     
     @servicos_do_dia = Servico.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'")
     @valor_total_dia = @servicos_do_dia.map(&:valor).map(&:to_f).sum
-    @valor_total = @servicos.map(&:valor).map(&:to_f).sum
     
-    if params[:nome_search] || params[:servico_search]
+    if params[:nome_search] || params[:servico_search] || params[:data_search]
       @servicos = @servicos.where('nome_cliente ILIKE ?', "%#{params[:nome_search]}%") if params[:nome_search].present?
       @servicos = @servicos.where('servico ILIKE ?', "%#{params[:servico_search]}%") if params[:servico_search].present?
+      if params[:data_search].present?
+        params[:data_search] = Date.parse(params[:data_search]).strftime("%Y-%m-%d")
+        @servicos = @servicos.where('CAST(data AS TEXT) LIKE ?', "%#{params[:data_search]}%")
+      end
     else
       @servicos = Servico.all.order(data: :desc)
     end
-
+    
+    @valor_total = @servicos.map(&:valor).map(&:to_f).sum
     @pagy, @servicos = pagy(@servicos)
   end
 

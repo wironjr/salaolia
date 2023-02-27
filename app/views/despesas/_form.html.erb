@@ -4,7 +4,7 @@
 
  <div class="mb-3">
     <%= form.label :data, class:'form-label' %>
-    <%= form.date_field :data, value: Date.today, class:'form-control' %>
+    <%= form.date_field :data, value: @despesa.data.present? ?  @despesa.data : Date.today, class:'form-control' %>
   </div>
 
   <div class="mb-3">
@@ -14,7 +14,7 @@
   
   <div class="mb-3">
     <%= form.label :valor_real, class:'form-label' %>
-    <%= form.text_field :valor_real, class:'form-control moeda' %>
+    <%= form.text_field :valor_real, value: @despesa.valor_real.present? ? numero_real(@despesa.valor_real,2) : '', class:'form-control moeda' %>
   </div>
 
   <div class="mt-5">

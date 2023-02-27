@@ -42,14 +42,14 @@
 			</div>
 		</div>
 
-		<div class="mt-3 text-center">
+		<div class="mt-3 text-center mb-5">
 			 <div class="mt-1 text-white badge text-wrap" style="text-decoration: none; font-size: 1.5rem; width: 15rem; height: 3rem; background-color: #572057 !important">
 				<i class="bi bi-person-add float-start"></i><%= link_to 'Usuários', new_user_path, class:'text-white', style:'text-decoration: none;' %>
 			</div>
 		</div>
 
 		<% if @qnt_agendamentos_dia > 0 %>
-			<div class="d-flex justify-content-center mt-5">
+			<div class="d-flex justify-content-center">
 				<div class="card text-center shadow" style="width: 15rem;">
 					<div class="card-header bg-primary text-white">
 					AGENDA DO <b>DIA</b>
@@ -91,7 +91,7 @@
 				DESPESAS DO <b>DIA</b>
 				</div>
 				<div class="card-body">
-				<h5 class="card-title"><%= numero_real( @despesas_do_dia,2) %></h5>
+				<h5 class="card-title"><%= numero_real( @despesas_do_dia ,2) %></h5>
 				</div>
 			</div>
 		</div>

@@ -5,6 +5,11 @@
   <div class="card text-center" style="width: 10rem;">
     <div class="card-header">
       Valor do caixa
+      <% if  params[:nome_search].present? || params[:servico_search].present? || params[:data_search].present? %>
+        <small style="font-size: 0.7rem" class="text-danger"><br>
+          <b><%= params[:nome_search] != '' ? '(filtro de nome)' : params[:servico_search] != '' ? '(filtro de serviço)' : params[:data_search] != '' ? '(filtro de data)' : '' %></b>
+        </small>
+      <% end %>
     </div>
     <div class="card-body">
       <h5 class="card-title"><%= numero_real( @valor_total,2) %></h5>
@@ -16,10 +21,33 @@
   <form>
   <div class="row mb-4">
     <div class="col-sm-2">
-      <input type="text" name="nome_search" placeholder="Buscar por nome..." class="form-control ">
+      <input type="text" name="nome_search" value="<%= params[:nome_search].present? ? params[:nome_search] : '' %>" placeholder="Buscar por nome..." class="form-control"
+      onkeyup="
+      var nome = this.value;
+      if (nome !== null){
+        this.value = nome.toUpperCase();
+      }
+      ">
     </div>
     <div class="col-sm-2">
-      <input type="text" name="servico_search" placeholder="Buscar por serviço..." class="form-control ">
+      <input type="text" name="servico_search" value="<%= params[:sercico_search].present? ? params[:servico_search] : '' %>" placeholder="Buscar por serviço..." class="form-control"
+      onkeyup="
+      var servico = this.value;
+      if (servico !== null){
+        this.value = servico.toUpperCase();
+      }
+      ">
+    </div>
+    <div class="col-sm-2">
+      <input type="text" name="data_search" placeholder="Buscar por data..." value="<%= params[:data_search].present? ? Date.parse(params[:data_search]).strftime("%d/%m/%Y") : '' %>" class="form-control" 
+      onkeyup="
+        var v = this.value;
+        if (v.match(/^\d{2}$/) !== null) {
+            this.value = v + '/';
+        } else if (v.match(/^\d{2}\/\d{2}$/) !== null) {
+            this.value = v + '/';
+        }"
+        maxlength="10">
     </div>
     <div class="col-sm-4">
       <button type="submit" class="btn bg-roxo text-white ms-3">Buscar</button>
@@ -48,7 +76,7 @@
         <tr>
           <td><div><b class="ocultar-res">Data</b> <div><%= servico.data.strftime('%d/%m/%Y') %></div></div></td>
           <td><div><b class="ocultar-res">Cliente</b> <div><%= servico.nome_cliente.upcase %></div></div></td>
-          <td><div><b class="ocultar-res">Serviço</b> <div><%= servico.servico.upcase %></div></div></td></td>
+          <td><div><b class="ocultar-res">Serviço</b> <div><%= servico.servico.upcase.gsub(/\-.+/, "") %></div></div></td></td>
           <td><div><b class="ocultar-res">Valor</b> <div><%= numero_real(servico.valor,2) %></div></div></td></td>
           <td>
             <%#= link_to 'Show', servico %>

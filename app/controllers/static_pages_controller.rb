@@ -10,7 +10,7 @@ class StaticPagesController < ApplicationController
 
 		@despesas = Despesa.all
 		@despesas_valor = @despesas.map(&:valor).map(&:to_f).sum
-		@despesas_do_dia = @despesas.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").map(&:valor).map(&:to_f).sum
+		@despesas_do_dia = @despesas.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").sum(:valor_real)
 	
 		@valor_total_lucro = @valor_total - @despesas_valor
 
