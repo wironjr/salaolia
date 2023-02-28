@@ -13,8 +13,14 @@
 		</div>
 
 		<div class="mt-3 text-center">
-      <div class="mt-1 text-white badge text-wrap " style="text-decoration: none; font-size: 1.4rem; width: 15rem; height: 3rem; background-color: #572057 !important">
-				<i class="bi bi-filter float-start fs-2"></i><%= link_to 'Agendamentos', agendamentos_path, class:'text-white', style:'text-decoration: none;' %>
+      <div class="mt-1 text-white badge text-wrap position-relative" style="text-decoration: none; font-size: 1.4rem; width: 15rem; height: 3rem; background-color: #572057 !important">			
+				<i class="bi bi-filter float-start fs-2"></i>
+				<%= link_to 'Agendamentos', agendamentos_path, class:'text-white', style:'text-decoration: none;' %>
+				<% if @qnt_agendamentos_dia > 0 %>
+					<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+						<%= @qnt_agendamentos_dia %>
+					</span>		
+				<% end %>		
 			</div>
 		</div>
 
@@ -28,7 +34,7 @@
 			<div class="dropdown-center">
 				<a class="" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true">
 					<div class="mt-1 text-white badge text-wrap" style="text-decoration: none; font-size: 1.5rem; width: 15rem; height: 3rem; background-color: #572057 !important">
-						<i class="bi bi-clipboard-data float-start"></i>Relatórios
+						<i class="bi bi-clipboard-data float-start"></i>Gráficos
 					</div>
 				</a>
 

@@ -14,11 +14,11 @@ class StaticPagesController < ApplicationController
 	
 		@valor_total_lucro = @valor_total - @despesas_valor
 
-		@agendamentos = current_user.agendamentos
+		@agendamentos = Agendamento.all
 		@qnt_agendamentos_dia = @agendamentos.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").count
 		@qnt_agendamentos_futuros = @agendamentos.where("to_char(data,'YYYY-MM-DD') > '#{Time.now.to_date.to_s}'").count
 		
-		@servico_mais_usado = Servico.group(:servico).order('count_id DESC').limit(1).count(:id).keys.first
+		
 	end
 
 end

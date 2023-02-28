@@ -13,7 +13,7 @@
 
   <div class="mb-3">
     <% if @agendamento.errors.has_key?(:nome) %>
-      <div class="error_message float-end">Obrigatório</div>
+      <div class="error_message float-end">Nome e sobrenome obrigatório</div>
     <% end %>
     <%= form.label :nome, class:'form-label' %>
 
@@ -22,9 +22,6 @@
     <% else %>
       <%= form.text_field :nome, class:"form-control moeda text-uppercase" %>
     <% end %>
-   
-    
-
   </div>
 
   <div class="mb-3">
@@ -66,9 +63,10 @@ $('#agendamento_telefone').mask('(00) 00000-0000')
   const nameError = document.querySelector('.error_message');
   const nameError1 = document.querySelector('#error_msg');
   const nameError2 = document.querySelector('#error_msg2');
+  const padrao = /^((\b[A-zÀ-ú']{2,40}\b)\s*){2,}$/;
 
   nameField.addEventListener('input', () => {
-    if (nameField.value.trim() !== '') {
+    if (nameField.value !== '' && padrao.test(nameField.value) ) {
       nameError.style.display = 'none';
       nameField.classList.remove ("aviso")
     } else {

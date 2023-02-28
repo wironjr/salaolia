@@ -109,7 +109,7 @@ class ServicosController < ApplicationController
       @servicos_prestados << servico.gsub(/\-.+/, "")
     end
 
-    if Servico.where(nome_cliente: params[:servico][:nome_cliente]).where(servico: params[:servico][:servico]).present? && Servico.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").present?
+    if Servico.where(nome_cliente: params[:servico][:nome_cliente], servico: params[:servico][:servico]).where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").present?
       flash[:danger] = "Serviço já cadastrado!" 
       redirect_to servicos_do_dia_servicos_path
     else

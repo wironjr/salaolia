@@ -36,6 +36,10 @@
       <% end %>
     </tbody>
   </table>
-
 </div>
-  <%= link_to 'Voltar', agendamentos_path, class: 'btn btn-primary mt-4 bg-roxo'  %>
+
+<div class="div-pagy mt-4">
+  <%== pagy_bootstrap_nav(@pagy) %>
+</div>
+
+<%= link_to 'Voltar', agendamentos_path, class: 'btn btn-primary mt-4 bg-roxo'  %>

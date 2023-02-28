@@ -6,7 +6,7 @@ class AgendamentosController < ApplicationController
 
   # GET /agendamentos or /agendamentos.json
   def index
-    @agendamentos = current_user.agendamentos
+    @agendamentos = Agendamento.all
     
     if params[:nome_search] || params[:servico_search]
       @agendamentos_dia = @agendamentos.where("to_char(data,'YYYY-MM-DD') = '#{Time.now.to_date.to_s}'").where('nome ILIKE ?', "%#{params[:nome_search]}%").sort_by { |obj| obj.hora.to_i } if params[:nome_search].present?
@@ -28,7 +28,8 @@ class AgendamentosController < ApplicationController
   end
 
   def futuros
-    @agendamentos = current_user.agendamentos.where("to_char(data,'YYYY-MM-DD') > '#{Time.now.to_date.to_s}'").order(data: :desc)
+    @agendamentos = Agendamento.where("to_char(data,'YYYY-MM-DD') > '#{Time.now.to_date.to_s}'").order(data: :desc)
+    @pagy, @agendamentos = pagy(@agendamentos)
   end
 
   def json_teste   
@@ -60,8 +61,13 @@ class AgendamentosController < ApplicationController
 
   # POST /agendamentos or /agendamentos.json
   def create
-    @agendamento = current_user.agendamentos.build(agendamento_params)
-    @agendamento.telefone = @agendamento.telefone.gsub('(','').gsub(')','').gsub(' ','').gsub('-','')
+    if current_user
+      @agendamento = current_user.agendamentos.build(agendamento_params)
+      @agendamento.telefone = @agendamento.telefone.gsub('(','').gsub(')','').gsub(' ','').gsub('-','')
+    else
+      params[:agendamento][:telefone] = params[:agendamento][:telefone].gsub('(','').gsub(')','').gsub(' ','').gsub('-','')
+      @agendamento = Agendamento.new(agendamento_params)
+    end
 
     @servicos = ["Escova Inteligente - R$100,00", "Escova Orgânica - R$100,00", 
     "Botox - R$80,00", "Hidratação - R$40,00", "Hidratação com Escova - R$60,00","Coloração - R$30,00", "Coloração com Escova - R$45,00",
