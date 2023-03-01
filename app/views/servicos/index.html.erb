@@ -7,7 +7,21 @@
       Valor do caixa
       <% if  params[:nome_search].present? || params[:servico_search].present? || params[:data_search].present? %>
         <small style="font-size: 0.7rem" class="text-danger"><br>
-          <b><%= params[:nome_search] != '' ? '(filtro de nome)' : params[:servico_search] != '' ? '(filtro de serviço)' : params[:data_search] != '' ? '(filtro de data)' : '' %></b>
+          <b>
+            <% if params[:nome_search] != '' && params[:servico_search] != '' && params[:data_search] == '' %>
+              (filtro nome e serviço)
+            <% elsif params[:nome_search] != '' && params[:data_search] != '' && params[:servico_search] == '' %>
+              (filtro nome e data)
+            <% elsif params[:nome_search] != '' && params[:servico_search] != '' && params[:data_search] != '' %>
+              (filtro nome, serviço e data)
+            <% elsif params[:nome_search] != '' %>
+              (filtro de nome)
+            <% elsif params[:servico_search] != '' %>
+              (filtro de serviço)
+            <% elsif params[:data_search] != '' %>
+              (filtro de data)
+            <% end %>
+          </b>
         </small>
       <% end %>
     </div>

@@ -24,11 +24,35 @@ class AgendamentosController < ApplicationController
 
   def todos
     @agendamentos = Agendamento.all.order(data: :desc)
+    
+    if params[:nome_search] || params[:servico_search] || params[:data_search]
+      @agendamentos = @agendamentos.where('nome ILIKE ?', "%#{params[:nome_search]}%") if params[:nome_search].present?
+      @agendamentos = @agendamentos.where('servico ILIKE ?', "%#{params[:servico_search]}%") if params[:servico_search].present?
+      if params[:data_search].present?
+        params[:data_search] = Date.parse(params[:data_search]).strftime("%Y-%m-%d")
+        @agendamentos = @agendamentos.where('CAST(data AS TEXT) LIKE ?', "%#{params[:data_search]}%")
+      end
+    else
+      @agendamentos = Agendamento.all.order(data: :desc)
+    end
+
     @pagy, @agendamentos = pagy(@agendamentos)
   end
 
   def futuros
-    @agendamentos = Agendamento.where("to_char(data,'YYYY-MM-DD') > '#{Time.now.to_date.to_s}'").order(data: :desc)
+    @agendamentos = Agendamento.where("to_char(data,'YYYY-MM-DD') > '#{Time.now.to_date.to_s}'").order(:data)
+
+    if params[:nome_search] || params[:servico_search] || params[:data_search]
+      @agendamentos = @agendamentos.where('nome ILIKE ?', "%#{params[:nome_search]}%") if params[:nome_search].present?
+      @agendamentos = @agendamentos.where('servico ILIKE ?', "%#{params[:servico_search]}%") if params[:servico_search].present?
+      if params[:data_search].present?
+        params[:data_search] = Date.parse(params[:data_search]).strftime("%Y-%m-%d")
+        @agendamentos = @agendamentos.where('CAST(data AS TEXT) LIKE ?', "%#{params[:data_search]}%")
+      end
+    else
+      @agendamentos = Agendamento.where("to_char(data,'YYYY-MM-DD') > '#{Time.now.to_date.to_s}'").order(:data)
+    end
+
     @pagy, @agendamentos = pagy(@agendamentos)
   end
 
