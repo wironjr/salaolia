@@ -9,6 +9,7 @@
 		<%= form.text_field :nome, class:'form-control text-uppercase' %>
 		<div class="error_message" id="error_msg_nome">Usuário já cadastrado</div>
 		<div class="error_message" id="error_msg_nome_branco">Não pode ser em branco</div>
+		<div class="error_message" id="error_msg_nome_espaco">Não pode conter espaço</div>
 	</div>
 
 	<div class="mb-3">
@@ -59,8 +60,11 @@ $('#user_password_confirmation').keyup(function() {
 <script>
 $('#error_msg_nome').hide()
 $('#error_msg_nome_branco').hide()
+$('#error_msg_nome_espaco').hide()
+
 
 $('#user_nome').keyup(function() {
+	
   fetch("/users/json_teste?nome="+ $('#user_nome').val().toLowerCase() )
   .then( response => response.json())
   .then( json => {
@@ -81,4 +85,13 @@ $('#user_nome').keyup(function() {
 
     });
 })
+
+$('#user_nome').keyup(function() {
+	const padrao = /\s/
+	if( padrao.test($('#user_nome').val()) ){
+		$('#error_msg_nome_espaco').show()
+	}else{
+		$('#error_msg_nome_espaco').hide()
+
+	}})
 </script>

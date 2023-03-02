@@ -12,7 +12,7 @@
     <% @user_all&.each do |user| %>
       <tr>
         <td scope="row"><div><b class="ocultar-res">Data</b> <div><%= user.created_at.strftime('%d/%m/%Y') %></div></div></td>
-        <td scope="row"><div><b class="ocultar-res">Usuário</b> <div><%= user.nome %></div></div></td> 
+        <td scope="row"><div><b class="ocultar-res">Usuário</b> <div><%= user.nome.upcase %></div></div></td> 
 		<td class="border-botton ocultar-res"></td>
       </tr>
     <% end %>
