@@ -1,0 +1,22 @@
+<h3 class="mt-3">Usuários cadastrados</h3>
+
+<table class="table mb-5 mt-3">
+  <thead class="table-light">
+    <tr>
+      <th scope="col">Data</th>
+      <th scope="col">Nome Usuário</th> 
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_all&.each do |user| %>
+      <tr>
+        <td scope="row"><div><b class="ocultar-res">Data</b> <div><%= user.created_at.strftime('%d/%m/%Y') %></div></div></td>
+        <td scope="row"><div><b class="ocultar-res">Usuário</b> <div><%= user.nome %></div></div></td> 
+		<td class="border-botton ocultar-res"></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Voltar',new_user_path, class:'btn btn-primary', style:'background-color: #572057 !important; border: none' %>
