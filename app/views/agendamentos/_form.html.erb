@@ -1,57 +1,64 @@
-<%= form_with(model: agendamento) do |form| %>
 
-  <div class="mb-3">
-    <%= form.label :data, class:'form-label' %>
+  <%= form_with(model: agendamento) do |form| %>
 
-    <%= form.date_field :data, value: params[:agendamento].present? ? params[:agendamento][:data] : Date.today , class:'form-control' %>
-  </div>
+    <div class="mb-3">
+      <%= form.label :data, class:'form-label' %>
 
-  <div class="mb-3">
-    <%= form.label :hora, 'Horários disponíveis', class:'form-label' %>
-    <%= form.select :hora, [["8h"],["10h"],["12h"],["14h"],["16h"],["18h"]],{}, class:'form-control' %>
-  </div>
+      <%= form.date_field :data, value: params[:agendamento].present? ? params[:agendamento][:data] : Date.today , class:'form-control' %>
+    </div>
 
-  <div class="mb-3">
-    <div class="error_message float-end" id="msg-nome-agendamento">Nome e sobrenome obrigatório</div>
-    <%= form.label :nome, class:'form-label' %>
-    <%= form.text_field :nome, class:"form-control moeda text-uppercase" %>
+    <div class="mb-3">
+      <%= form.label :hora, 'Horários disponíveis', class:'form-label' %>
+      <%= form.select :hora, [["8h"],["10h"],["12h"],["14h"],["16h"],["18h"]],{}, class:'form-control' %>
+    </div>
 
-  </div>
-
-  <div class="mb-3">
-    <% if @agendamento.errors.has_key?(:telefone) %>
-      <div class="error_message float-end" id="error_msg">Obrigatório</div>
+    <div class="mb-3">
+    <% if @agendamento.errors.has_key?(:nome) %>
+      <div class="error_message float-end" id="msg-nome-agendamento2">Nome e sobrenome obrigatório</div>
     <% end %>
-    <%= form.label :telefone, class:'form-label' %>
+      <div class="error_message float-end" id="msg-nome-agendamento">Nome e sobrenome obrigatório</div>
+      <%= form.label :nome, class:'form-label' %>
+      <%= form.text_field :nome, class:"form-control moeda text-uppercase" %>
 
-    <% if @agendamento.errors.has_key?(:telefone) %>
-      <%= form.text_field :telefone, class:'form-control moeda aviso', onkeypress:"$(this).mask('(00) 00000-0000')" %>
-    <% else %>
-      <%= form.text_field :telefone, class:'form-control moeda', onkeypress:"$(this).mask('(00) 00000-0000')" %>
-    <% end %>
-   
-  </div>
+    </div>
 
-  <div class="mb-3">
-    <% if @agendamento.errors.has_key?(:servico) %>
-      <div class="error_message float-end" id="error_msg2">Selecione um serviço</div>
-    <% end %>
-    <%= form.label :servico, 'Serviço', class:'form-label' %>
-    <%= form.select :servico, @servicos, {:include_blank => "Selecione o serviço"}, class:'form-control text-uppercase' %>
-  </div>
-  
+    <div class="mb-3">
+      <div class="error_message float-end" id="msg-telefone-agendamento">Telefone inválido</div>
+      <% if @agendamento.errors.has_key?(:telefone) %>
+        <div class="error_message float-end" id="error_msg">Obrigatório</div>
+      <% end %>
+      <%= form.label :telefone, class:'form-label' %>
 
-  <div class="mt-5">
-    <%= form.submit 'Salvar', class:'btn btn-primary', style:'background-color: #572057 !important; border: none' %>
-    <%#= link_to "Voltar", _path, class:'btn btn-primary' %>
-  </div>
-<% end %>
+      <% if @agendamento.errors.has_key?(:telefone) %>
+        <%= form.text_field :telefone, class:'form-control moeda aviso', onkeypress:"$(this).mask('(00) 00000-0000')" %>
+      <% else %>
+        <%= form.text_field :telefone, class:'form-control moeda', onkeypress:"$(this).mask('(00) 00000-0000')" %>
+      <% end %>
+    
+    </div>
+
+    <div class="mb-3">
+      <% if @agendamento.errors.has_key?(:servico) %>
+        <div class="error_message float-end" id="error_msg2">Selecione um serviço</div>
+      <% end %>
+      <%= form.label :servico, 'Serviço', class:'form-label' %>
+      <%= form.select :servico, @servicos, {:include_blank => "Selecione o serviço"}, class:'form-control text-uppercase' %>
+    </div>
+    
+
+    <div class="mt-5">
+      <%= form.submit 'Salvar', class:'btn btn-primary', style:'background-color: #572057 !important; border: none' %>
+      <%#= link_to "Voltar", _path, class:'btn btn-primary' %>
+    </div>
+  <% end %>
+
 <script>
 $('#agendamento_telefone').mask('(00) 00000-0000')
 </script>
 
 <script>
 $('#msg-nome-agendamento').hide()
+$('#msg-telefone-agendamento').hide()
   const nameField = document.querySelector('#agendamento_nome');
   const telefone = document.querySelector('#agendamento_telefone');
   const servico = document.querySelector('#agendamento_servico');
@@ -63,25 +70,28 @@ $('#msg-nome-agendamento').hide()
   nameField.addEventListener('keyup', () => {
     if (nameField.value !== '' && padrao.test(nameField.value) ) {
       //nameError.style.display = 'none';
+      $('#msg-nome-agendamento2').hide()
       $('#msg-nome-agendamento').hide()
       nameField.classList.remove ("aviso")
     } else {
+      $('#msg-nome-agendamento2').hide()
       $('#msg-nome-agendamento').show()
       //nameError.style.display = 'block';
       nameField.classList.add ("aviso")
     }
   });
 
-  telefone.addEventListener('input', () => {
-    if (telefone.value.trim() !== '') {
-      nameError1.style.display = 'none';
+   telefone.addEventListener('keyup', () => {
+    if (telefone.value.trim() !== '' && telefone.value.length == 15) {
+      $('#msg-telefone-agendamento').hide()
       telefone.classList.remove ("aviso")
     } else {
-      nameError1.style.display = 'block';
+      $('#msg-telefone-agendamento').show()
       telefone.classList.add ("aviso")
     }
   });
 
+ 
   servico.addEventListener('input', () => {
     if (servico.value.trim() !== '') {
       nameError2.style.display = 'none';
