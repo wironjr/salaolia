@@ -12,16 +12,10 @@
   </div>
 
   <div class="mb-3">
-    <% if @agendamento.errors.has_key?(:nome) %>
-      <div class="error_message float-end">Nome e sobrenome obrigatório</div>
-    <% end %>
+    <div class="error_message float-end" id="msg-nome-agendamento">Nome e sobrenome obrigatório</div>
     <%= form.label :nome, class:'form-label' %>
+    <%= form.text_field :nome, class:"form-control moeda text-uppercase" %>
 
-    <% if @agendamento.errors.has_key?(:nome) %>
-      <%= form.text_field :nome, class:"form-control moeda text-uppercase aviso" %>
-    <% else %>
-      <%= form.text_field :nome, class:"form-control moeda text-uppercase" %>
-    <% end %>
   </div>
 
   <div class="mb-3">
@@ -57,20 +51,23 @@ $('#agendamento_telefone').mask('(00) 00000-0000')
 </script>
 
 <script>
+$('#msg-nome-agendamento').hide()
   const nameField = document.querySelector('#agendamento_nome');
   const telefone = document.querySelector('#agendamento_telefone');
   const servico = document.querySelector('#agendamento_servico');
   const nameError = document.querySelector('.error_message');
   const nameError1 = document.querySelector('#error_msg');
   const nameError2 = document.querySelector('#error_msg2');
-  const padrao = /^((\b[A-zÀ-ú']{2,40}\b)\s*){2,}$/;
+  const padrao = /^((\b[A-zÀ-ú']{2,40}\b)\s*){2,}$/; //regex para nome e sobrenome(3 caracteres)
 
-  nameField.addEventListener('input', () => {
+  nameField.addEventListener('keyup', () => {
     if (nameField.value !== '' && padrao.test(nameField.value) ) {
-      nameError.style.display = 'none';
+      //nameError.style.display = 'none';
+      $('#msg-nome-agendamento').hide()
       nameField.classList.remove ("aviso")
     } else {
-      nameError.style.display = 'block';
+      $('#msg-nome-agendamento').show()
+      //nameError.style.display = 'block';
       nameField.classList.add ("aviso")
     }
   });
