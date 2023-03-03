@@ -20,14 +20,14 @@ Rails.application.routes.draw do
     get :despesas, on: :collection
     get :lucro_mes, on: :collection
   end
-  
+
   get 'users/json_teste', to: 'users#json_teste'
 
   resources :users, only: [:new, :create, :index]
 
   get 'entrar', to: 'sessions#new'
   post 'entrar', to: 'sessions#create'
-  delete 'sair', to: 'sessions#destroy'
+  delete '/sair', to: 'sessions#destroy'
 
 
   
