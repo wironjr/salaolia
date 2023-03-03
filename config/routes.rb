@@ -23,12 +23,13 @@ Rails.application.routes.draw do
   
   get 'users/json_teste', to: 'users#json_teste'
 
+  resources :users, only: [:new, :create, :index]
+
   get 'entrar', to: 'sessions#new'
   post 'entrar', to: 'sessions#create'
   delete 'sair', to: 'sessions#destroy'
 
 
-  resources :users, only: [:new, :create, :index]
   
   resources :caixas
   
