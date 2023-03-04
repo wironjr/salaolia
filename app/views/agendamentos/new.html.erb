@@ -139,6 +139,82 @@
   </table>
 </div>
 
+
+
+<div class="text-center mt-5">
+<!-- Button trigger modal -->
+<button type="button" style="border: none !important; background-color: white !important;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  <div class="text-center "><%= image_tag("gwlogo.png", width:'120em') %> </div>
+</button><br>
+<small style="font-size: 0.7rem">Desenvolvido por GW SOFTWARE<br><b>Sistema WEB Salão de Beleza</b></small>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Contato</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+				<div class="">
+					<div class="contato-estilo  mt-4">
+						<div class="row ">
+							<div class="col-6">
+								<div class=" ms-5 ">
+									<br><div class="mt-2"><i class="bi bi-whatsapp"></i> <b>FALE CONOSCO</b> </div>
+									<div class="ms-2 mt-2 fs-6 links-contato">
+										<a href="https://wa.me/5585981222250" style="text-decoration: none">Glaylson</a><br>
+										<a href="https://wa.me/5585997571902" style="text-decoration: none">Wiron Júnior</a>
+									</div>
+								</div>
+
+								<div class=" ms-5 ">
+									<br><div class="mt-2"><i class="bi bi-telephone-inbound"></i> <b>TELEFONES</b> </div>
+									<div class="ms-2 mt-2 fs-6">
+										98122.2250 Glaylson<br>
+										99757.1902 Wiron Júnior
+									</div>
+								</div>
+								<div class=" ms-5 ">
+									<br><div class="mt-2"><i class="bi bi-clock"></i> <b>HORÁRIOS</b> </div>
+									<div class="ms-2 mt-2 fs-6">
+										<b>SEG - SEX</b> : 8H às 18H<br>
+										<b>SAB</b> : 8H às 12H<br>
+										<b>DOM</b> : FECHADO
+									</div>
+								</div>
+							</div>
+
+							<div class="col-6 contato-estilo-form ">
+								<div class="p-4">
+									<h2 class="float-start mt-3">CONTATE-NOS</h2>
+									<%= image_tag('gwlogo.png', width: '100rem', class:"float-end")%>
+										<form id="contact-form">
+											<input id="nome_email" type="text" style="border: none; border-bottom: 1px solid black; width: 100%" placeholder="seu nome" class="mt-3" name="user_name"><br>
+											<input id="telefone_email" type="text" style="border: none; border-bottom: 1px solid black; width: 100%" placeholder="seu telefone" class="mt-5" name="contact_number" onkeypress="$(this).mask('(00) 00000-0000')"><br>
+											<textarea id="msg_email" style="border: none; border-bottom: 1px solid black; height: 100px; width: 100%" placeholder="sua mensagem" class="mt-3" name="message"></textarea><br>
+											<input type="submit" value="ENVIAR" class="btn btn-dark mt-2" id="btn-enviar-email">
+											<span style="color: red; font-size: 0.8rem;" class="ms-5 hide" id="msg-dados"><b>PREENCHA OS DADOS CORRETAMENTE</b></span>
+											<div class="spinner-border mt-4 hide" role="status" id="sppiner-email">
+												<span class="visually-hidden">Loading...</span>
+											</div>
+										</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 $(document).on('turbolinks:visit', function() {
   $('#jurer').addClass('animate__animated animate__fadeIn');
@@ -146,4 +222,51 @@ $(document).on('turbolinks:visit', function() {
 $(document).on('turbolinks:load', function() {
   $('#jurer').removeClass('animate__animated animate__fadeIn');
 });
+</script>
+
+<script type="text/javascript">
+  (function() {
+      emailjs.init('7B8bjTHSwjvQfZf4D');
+  })();
+  </script>
+  <script type="text/javascript">
+  
+      document.getElementById('contact-form').addEventListener('submit', function(event) {
+          
+        event.preventDefault();
+        // generate a five digit number for the contact_number variable
+        //this.contact_number.value = Math.random() * 100000 | 0;
+        // these IDs from the previous steps
+            
+        var nome = document.getElementById('nome_email').value 
+        var telefone = document.getElementById('telefone_email').value
+        var msg = document.getElementById('msg_email').value
+        
+        var msgDados = document.getElementById('msg-dados')
+        
+        
+        if( nome == '' || telefone == '' || msg == '' ){
+          document.getElementById("msg-dados").classList.remove("hide");
+        }else{
+          var loading = document.getElementById('sppiner-email').classList.remove("hide");
+          var btn = document.getElementById('btn-enviar-email').classList.add("hide");
+
+          emailjs.sendForm('service_to1zh4t', 'template_ozqw705', this)
+          .then(function() {
+            alert('Mensagem enviada com sucesso!')
+              console.log('SUCCESS!');
+              document.getElementById('nome_email').value = ''
+              document.getElementById('telefone_email').value = ''
+              document.getElementById('msg_email').value = ''
+              document.getElementById('sppiner-email').classList.add("hide");
+              document.getElementById('btn-enviar-email').classList.remove("hide");
+          }, function(error) {
+            alert('Erro ao enviar mensagem!')
+              console.log('FAILED...', error);
+          });
+          document.getElementById("msg-dados").classList.add("hide");
+        }
+          
+      });
+  
 </script>
