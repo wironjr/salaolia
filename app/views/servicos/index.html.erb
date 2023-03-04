@@ -14,6 +14,8 @@
               (filtro nome e data)
             <% elsif params[:nome_search] != '' && params[:servico_search] != '' && params[:data_search] != '' %>
               (filtro nome, serviço e data)
+            <% elsif params[:servico_search] != '' && params[:data_search] != '' && params[:nome_search] == '' %>
+              (filtro serviço e data)
             <% elsif params[:nome_search] != '' %>
               (filtro de nome)
             <% elsif params[:servico_search] != '' %>
@@ -34,7 +36,7 @@
 <div>
   <form>
   <div class="row mb-4">
-    <div class="col-sm-2">
+    <div class="col-sm-2 mb-2">
       <input type="text" name="nome_search" value="<%= params[:nome_search].present? ? params[:nome_search] : '' %>" placeholder="Buscar por nome..." class="form-control"
       onkeyup="
       var nome = this.value;
@@ -43,7 +45,7 @@
       }
       ">
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-2 mb-2">
       <input type="text" name="servico_search" value="<%= params[:servico_search].present? ? params[:servico_search] : '' %>" placeholder="Buscar por serviço..." class="form-control"
       onkeyup="
       var servico = this.value;
@@ -52,7 +54,7 @@
       }
       ">
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-2 mb-2">
       <input type="text" name="data_search" placeholder="Buscar por data..." value="<%= params[:data_search].present? ? Date.parse(params[:data_search]).strftime("%d/%m/%Y") : '' %>" class="form-control" 
       onkeyup="
         var v = this.value;
