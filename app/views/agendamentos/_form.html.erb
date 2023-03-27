@@ -9,7 +9,7 @@
 
     <div class="mb-3">
       <%= form.label :hora, 'Horários disponíveis', class:'form-label' %>
-      <%= form.select :hora, [["8h"],["10h"],["12h"],["14h"],["16h"],["18h"]],{}, class:'form-control' %>
+      <%= form.select :hora, [["8h"],["10h"],["13h"],["15h"],["17h"]],{}, class:'form-control' %>
     </div>
 
     <div class="mb-3">
@@ -119,7 +119,7 @@ $('#msg-telefone-agendamento').hide()
 
       if(json.length >= 1){
         $("#agendamento_hora").empty();
-        array = ["8h","10h","12h","14h","16h","18h"]
+        array = ["8h","10h","13h","15h","17h"]
         for (i = 0; i < array.length; i++) {
           $('#agendamento_hora').append('<option>' + array[i] + '</option>');
         }
@@ -137,7 +137,7 @@ $('#msg-telefone-agendamento').hide()
           };
       }else{
         $("#agendamento_hora").empty();
-        array = ["8h","10h","12h","14h","16h","18h"]
+        array = ["8h","10h","13h","15h","17h"]
         for (i = 0; i < array.length; i++) {
           $('#agendamento_hora').append('<option>' + array[i] + '</option>');
         }
@@ -159,7 +159,7 @@ $('#msg-telefone-agendamento').hide()
 
       if(json.length >= 1){
         $("#agendamento_hora").empty();
-        array = ["8h","10h","12h","14h","16h","18h"]
+        array = ["8h","10h","13h","15h","17h"]
         for (i = 0; i < array.length; i++) {
           $('#agendamento_hora').append('<option>' + array[i] + '</option>');
         }
@@ -177,7 +177,7 @@ $('#msg-telefone-agendamento').hide()
           };
       }else{
         $("#agendamento_hora").empty();
-        array = ["8h","10h","12h","14h","16h","18h"]
+        array = ["8h","10h","13h","15h","17h"]
         for (i = 0; i < array.length; i++) {
           $('#agendamento_hora').append('<option>' + array[i] + '</option>');
         }
