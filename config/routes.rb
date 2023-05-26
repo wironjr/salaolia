@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   end
 
   get 'users/json_teste', to: 'users#json_teste'
+  get '/financeiro', to: 'static_pages#financeiro'
 
   resources :users, only: [:new, :create, :index]
 

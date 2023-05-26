@@ -1,0 +1,167 @@
+<style>
+@media print {
+ .no-print{
+	display: none !important;
+ }
+
+ .show-print{
+	display: block !important;
+ }
+
+ .reset-css-print{
+	border: none !important;
+	box-shadow: 0px 0px 0px !important;
+ }
+}
+
+li .active {
+	background-color: #572057 !important;
+}
+
+ .nav-item button:not(.active){
+	color: #000 !important
+}
+</style>
+
+<h2 class="mt-2">Relatório Financeiro</h2>
+
+<form>
+<div class="row no-print">
+ <div class="col-sm-2 mb-2">
+		<input type="month" name="data_search" value="<%= params[:data_search].present? ? params[:data_search] : Time.now.strftime('%Y-%m') %>" class="form-control" >
+	</div>
+	<div class="col-sm-3">
+		<button type="submit" class="btn bg-roxo text-white ms-3">Buscar</button>
+		<a href="/financeiro" class="btn bg-roxo text-white ms-2">Limpar Filtro</a>
+	</div>
+	<div class="col-sm-7">
+		<a href="#" class="btn bg-roxo text-white ms-2 float-end" id="imprimir_financeiro">Imprimir</a>
+	</div>
+</div>
+</form>
+
+<div class="p-2 mt-4 card shadow reset-css-print">
+	<ul class="nav nav-pills mb-3 mt-4" id="pills-tab" role="tablist">
+		<li class="nav-item" role="presentation">
+			<button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Serviços</button>
+		</li>
+		<li class="nav-item" role="presentation">
+			<button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Despesas</button>
+		</li>
+		<li class="nav-item" role="presentation">
+			<button class="nav-link" id="pills-profile-tab2" data-bs-toggle="pill" data-bs-target="#pills-profile2" type="button" role="tab" aria-controls="pills-profile2" aria-selected="false">Serviços + Despesas</button>
+		</li>
+	</ul>
+	<div class="tab-content" id="pills-tabContent">
+		<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+			<table class="table">
+				<thead>
+					<tr>
+						<th >Data</th>
+						<th >Nome cliente</th>
+						<th >Servico</th>
+						<th class="text-end">Valor</th>
+										
+					</tr>
+				</thead>
+
+				<tbody>
+					<% @servicos_mes.each do |servico| %>
+						<tr>
+							<td><div><b class="ocultar-res">Data</b> <div><%= servico.data.strftime('%d/%m/%Y') %></div></div></td>
+							<td><div><b class="ocultar-res">Cliente</b> <div><%= servico.nome_cliente.upcase %></div></div></td>
+							<td><div><b class="ocultar-res">Serviço</b> <div><%= servico.servico.upcase.gsub(/\-.+/, "") %></div></div></td>
+							<td><div class="text-end"><b class="ocultar-res">Valor</b> <div><%= numero_real(servico.valor,2) %></div></div></td>
+							
+							
+						</tr>
+					<% end %>
+						<tr>
+							<td colspan=4 class="text-end">
+								<div><strong>Ticket médio</strong> <%=  numero_real(@servicos_mes_ticket,2) %></div>
+								<strong>Total</strong> <%= numero_real(@servicos_mes_valor,2) %>
+							</td>
+						</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+			<table class="table">
+					<thead>
+						<tr>
+							<th >Data</th>
+							<th >Observação</th>
+							<th class="text-end">Valor</th>
+											
+						</tr>
+					</thead>
+
+					<tbody>
+						<% @despesas_mes.each do |despesa| %>
+							<tr>
+								<td><div><b class="ocultar-res">Data</b> <div><%= despesa.data.strftime('%d/%m/%Y') %></div></div></td>
+								<td><div><b class="ocultar-res">Cliente</b> <div><%= despesa.descricao.upcase %></div></div></td>
+								<td class="text-end"><div><b class="ocultar-res">Valor</b> <div><%= numero_real(despesa.valor_real,2) %></div></div></td>
+								
+								<td class="border-botton ocultar-res"></td>
+							</tr>
+						<% end %>
+							<tr>
+								<td colspan="2" class="text-end" >&nbsp;</td>
+								<td  class="text-end"><strong>Total</strong><br> <%= numero_real(@despesas_mes_valor,2) %></td>
+							</tr>
+					</tbody>
+				</table>
+		</div>
+		<div class="tab-pane fade" id="pills-profile2" role="tabpanel" aria-labelledby="pills-profile-tab2" tabindex="0">
+			<table class="table">
+				<thead>
+					<tr>
+						<th >Data</th>
+						<th >Nome cliente</th>
+						<th >Servico</th>
+						<th class="text-end">Valor</th>
+										
+					</tr>
+				</thead>
+
+				<tbody>
+					<% @servicos_mes.each do |servico| %>
+						<tr>
+							<td><div><b class="ocultar-res">Data</b> <div><%= servico.data.strftime('%d/%m/%Y') %></div></div></td>
+							<td><div><b class="ocultar-res">Cliente</b> <div><%= servico.nome_cliente.upcase %></div></div></td>
+							<td><div><b class="ocultar-res">Serviço</b> <div><%= servico.servico.upcase.gsub(/\-.+/, "") %></div></div></td>
+							<td class="text-end"><div><b class="ocultar-res">Valor</b> <div><%= numero_real(servico.valor,2) %></div></div></td>
+							
+							<td class="border-botton ocultar-res"></td>
+						</tr>
+					<% end %>
+						<tr>
+							
+							<td colspan=4 class="text-end">
+								<div><strong>Serviços</strong> <%= numero_real(@servicos_mes_valor,2) %></div>
+								<div><strong>Despesas</strong> <%= numero_real(@despesas_mes_valor,2) %></div>
+								<div><strong>Total</strong> <%= numero_real(@lucro_mes,2) %></div>
+							</td>
+						</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+<div class="hide show-print mt-5 text-center" style="font-size: 0.8rem">
+	Relatório impresso <%= Date.today.strftime("%d/%m/%Y")%> por <%= maiusculo(current_user.nome) %> às <span id="hora-print"></span>
+</div>
+
+<script>
+$('#imprimir_financeiro').click(function(){
+		hora = $('#hora-print')
+		now = new Date;
+		hora.html(now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds())
+    window.print();
+    return false;
+})
+</script>
+  
