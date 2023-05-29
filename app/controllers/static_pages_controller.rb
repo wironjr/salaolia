@@ -31,8 +31,10 @@ class StaticPagesController < ApplicationController
 
 		@despesas_mes = @despesas.where(data: Time.now.beginning_of_month..Time.now.end_of_month)
 		@servicos_mes_valor = @servicos_mes.map(&:valor).map(&:to_f).sum
-		@despesas_mes_valor = @despesas_mes.map(&:valor).map(&:to_f).sum
+		@despesas_mes_valor = @despesas_mes.sum(&:valor_real)
 		@lucro_mes = @servicos_mes_valor - @despesas_mes_valor
+
+#binding.pry
 
 		@servicos_mes_ticket = @servicos_mes_valor / @servicos_mes_count unless @servicos_mes_count == 0
 
@@ -43,7 +45,7 @@ class StaticPagesController < ApplicationController
 			@servicos_mes = @servicos.where("DATE_PART('year', data) = ? AND DATE_PART('month', data) = ?", ano, mes)
 			@despesas_mes = @despesas.where("DATE_PART('year', data) = ? AND DATE_PART('month', data) = ?", ano, mes)
 			@servicos_mes_valor = @servicos_mes.map(&:valor).map(&:to_f).sum
-			@despesas_mes_valor = @despesas_mes.map(&:valor_real).map(&:to_f).sum
+			@despesas_mes_valor = @despesas_mes.sum(&:valor_real)
 			@lucro_mes = @servicos_mes_valor - @despesas_mes_valor
 			@servicos_mes_count = @servicos_mes.count
 
